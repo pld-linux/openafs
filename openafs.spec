@@ -9,7 +9,8 @@ Group:		Networking/Daemons
 Group(de):	Netzwerkwesen/Server
 Group(pl):	Sieciowe/Serwery
 Source0:	http://www.openafs.org/dl/openafs/%{version}/%{name}-%{version}-src.tar.bz2
-#Source1:	%{name}-redhat.tar.gz
+Patch0:		%{name}-Makefile.in.fix
+URL:		http://www.openafs.org/
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Requires:	openafs-kernel
 Prereq:		/sbin/chkconfig
@@ -157,6 +158,8 @@ Ten pakiet zawiera ¼ród³a do samodzielnego skompilowania modu³u AFS.
 
 %prep
 %setup -q 
+
+%patch0 -p0
 
 %build
 autoconf
