@@ -97,7 +97,7 @@ administrative management.
 
 This package provides kerberos4 servers.
 
-%description  kerberos-server -l pl
+%description kerberos-server -l pl
 AFS jest rozproszonym systemem plików pozwalaj±cym na dzielenie plików
 miêdzy wieloma komputerami, tak¿e na ró¿nych platformach. AFS pozwala
 na kontrolê dostêpu, uwierzytelnianie, backup i administrowanie.
