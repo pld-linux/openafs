@@ -1,3 +1,6 @@
+#
+# TODO: FHS compliance (what is /afs, /usr/afs, /usr/vice, /usr/doc???)
+#
 #%define	kernver	2.2.0
 Summary:	OpenAFS distributed filesystem
 Summary(pl):	Rozproszony system plików OpenAFS
@@ -156,7 +159,7 @@ Ten pakiet zawiera ¼ród³a do samodzielnego skompilowania modu³u AFS.
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{%{_sbindir},/asf,,/etc/{sysconfig,rc.d/init.d}} \
 	$RPM_BUILD_ROOT{%{_sysconfdir}/openafs,/lib/security} \
-	$RPM_BUILD_ROOT%{_prefix}/{afs/logs,/vice{%{_sysconfdir},/cache}
+	$RPM_BUILD_ROOT%{_prefix}/{afs/logs,/vice/{etc,cache}}
 
 # Copy files from dest to the appropriate places in BuildRoot
 tar cf - -C dest bin include lib | tar xf - -C $RPM_BUILD_ROOT%{_prefix}
@@ -212,11 +215,11 @@ rm -rf $RPM_BUILD_ROOT
 ### scripts
 ###
 %post
-/sbin/chkconfig --add asf
-if [ -f /var/lock/subsys/asf ]; then
-	/etc/rc.d/init.d/asf restart >&2
+/sbin/chkconfig --add afs
+if [ -f /var/lock/subsys/afs ]; then
+	/etc/rc.d/init.d/afs restart >&2
 else
-	echo "Run \"/etc/rc.d/init.d/asf start\" to start ASF server." >&2
+	echo "Run \"/etc/rc.d/init.d/afs start\" to start AFS server." >&2
 fi
 
 %post client
