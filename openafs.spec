@@ -154,18 +154,9 @@ Ten pakiet zawiera ¼ród³a do samodzielnego skompilowania modu³u AFS.
 
 %install
 rm -rf $RPM_BUILD_ROOT
-
-# Build install tree
-install -d $RPM_BUILD_ROOT/afs
-install -d $RPM_BUILD_ROOT%{_sbindir}
-install -d $RPM_BUILD_ROOT/etc/sysconfig
-install -d $RPM_BUILD_ROOT/etc/rc.d/init.d
-install -d $RPM_BUILD_ROOT%{_sysconfdir}/openafs
-install -d $RPM_BUILD_ROOT/lib/security
-install -d $RPM_BUILD_ROOT%{_prefix}/afs/logs
-install -d $RPM_BUILD_ROOT%{_prefix}/vice%{_sysconfdir}
-install -d $RPM_BUILD_ROOT%{_prefix}/vice/cache
-chmod 700 $RPM_BUILD_ROOT%{_prefix}/vice/cache
+install -d $RPM_BUILD_ROOT{%{_sbindir},/asf,,/etc/{sysconfig,rc.d/init.d}} \
+	$RPM_BUILD_ROOT{%{_sysconfdir}/openafs,/lib/security} \
+	$RPM_BUILD_ROOT%{_prefix}/{afs/logs,/vice{%{_sysconfdir},/cache}
 
 # Copy files from dest to the appropriate places in BuildRoot
 tar cf - -C dest bin include lib | tar xf - -C $RPM_BUILD_ROOT%{_prefix}
@@ -174,11 +165,11 @@ tar cf - -C dest/root.server%{_prefix}/afs bin | tar xf - -C $RPM_BUILD_ROOT%{_p
 tar cf - -C dest/root.client%{_prefix}/vice%{_sysconfdir} afsd modload | tar xf - -C $RPM_BUILD_ROOT%{_prefix}/vice%{_sysconfdir}
 
 # Copy root.client config files
-install -m 755 dest/root.client%{_prefix}/vice%{_sysconfdir}/afs.conf $RPM_BUILD_ROOT/etc/sysconfig/afs
-install -m 755 dest/root.client%{_prefix}/vice%{_sysconfdir}/afs.rc $RPM_BUILD_ROOT/etc/rc.d/init.d/afs
+install dest/root.client%{_prefix}/vice%{_sysconfdir}/afs.conf $RPM_BUILD_ROOT/etc/sysconfig/afs
+install dest/root.client%{_prefix}/vice%{_sysconfdir}/afs.rc $RPM_BUILD_ROOT/etc/rc.d/init.d/afs
 
 # Copy PAM modules
-install -m 755 dest/lib/pam* $RPM_BUILD_ROOT/lib/security
+install dest/lib/pam* $RPM_BUILD_ROOT/lib/security
 
 # Populate %{_prefix}/vice%{_sysconfdir}
 tar cf - -C redhat%{_prefix}_vice_etc . | tar xf - -C $RPM_BUILD_ROOT%{_prefix}/vice%{_sysconfdir}
@@ -221,7 +212,12 @@ rm -rf $RPM_BUILD_ROOT
 ### scripts
 ###
 %post
-/sbin/chkconfig --add afs
+/sbin/chkconfig --add asf
+if [ -f /var/lock/subsys/asf ]; then
+	/etc/rc.d/init.d/asf restart >&2
+else
+	echo "Run \"/etc/rc.d/init.d/asf start\" to start ASF server." >&2
+fi
 
 %post client
 echo
@@ -252,9 +248,11 @@ echo Be sure to edit /etc/sysconfig/afs and turn AFS_SERVER on
 echo
 
 %preun
-if [ "$1" = "0" ] ; then
-	/etc/rc.d/init.d/afs stop
-	/sbin/chkconfig --del afs
+if [ "$1" = "0" ]; then
+	if [ -f /var/lock/subsys/afs ]; then
+		/etc/rc.d/init.d/afs stop
+	fi
+	/sbin/chkconfig --add afs
 fi
 
 ###
