@@ -6,8 +6,6 @@ Version:	1.2.2a
 Release:	1
 License:	IPL
 Group:		Networking/Daemons
-Group(de):	Netzwerkwesen/Server
-Group(pl):	Sieciowe/Serwery
 Source0:	http://www.openafs.org/dl/openafs/%{version}/%{name}-%{version}-src.tar.bz2
 Patch0:		%{name}-Makefile.in.fix
 URL:		http://www.openafs.org/
@@ -35,8 +33,6 @@ Ten pakiet zawiera pliki wspÛlne dla klienta i serwera AFS.
 Summary:	OpenAFS Filesystem Client
 Summary(pl):	Klient systemu plikÛw OpenAFS
 Group:		Networking/Daemons
-Group(de):	Netzwerkwesen/Server
-Group(pl):	Sieciowe/Serwery
 Requires:	openafs-kernel openafs
 
 %description client
@@ -59,8 +55,6 @@ Ten pakiet zawiera klienta do montowania i manipulowania AFS.
 Summary:	OpenAFS Filesystem Server
 Summary(pl):	Serwer systemu plikÛw OpenAFS
 Group:		Networking/Daemons
-Group(de):	Netzwerkwesen/Server
-Group(pl):	Sieciowe/Serwery
 Requires:	openafs-kernel openafs
 
 %description server
@@ -83,13 +77,6 @@ Ten pakiet zawiera serwer do przechowywania plikÛw w AFS.
 Summary:	OpenAFS Development Libraries and Headers
 Summary(pl):	Pliki nag≥Ûwkowe i biblioteki OpenAFS
 Group:		Development/Libraries
-Group(de):	Entwicklung/Libraries
-Group(es):	Desarrollo/Bibliotecas
-Group(fr):	Development/Librairies
-Group(pl):	Programowanie/Biblioteki
-Group(pt_BR):	Desenvolvimento/Bibliotecas
-Group(ru):	Ú¡⁄“¡¬œ‘À¡/‚…¬Ã…œ‘≈À…
-Group(uk):	Úœ⁄“œ¬À¡/‚¶¬Ã¶œ‘≈À…
 
 %description devel
 The AFS distributed filesystem. AFS is a distributed filesystem
@@ -114,8 +101,6 @@ wspÛ≥dzielonych.
 Summary:	OpenAFS Kernel Module(s)
 Summary(pl):	Modu≥(y) j±dra OpenAFS
 Group:		Networking/Daemons
-Group(de):	Netzwerkwesen/Server
-Group(pl):	Sieciowe/Serwery
 
 %description kernel
 The AFS distributed filesystem. AFS is a distributed filesystem
@@ -137,8 +122,6 @@ Ten pakiet zawiera prekompilowane modu≥y j±dra do AFS.
 Summary:	OpenAFS Kernel Module source tree
 Summary(pl):	¨rÛd≥a modu≥u j±dra AFS
 Group:		Networking/Daemons
-Group(de):	Netzwerkwesen/Server
-Group(pl):	Sieciowe/Serwery
 
 %description kernel-source
 The AFS distributed filesystem. AFS is a distributed filesystem
