@@ -45,8 +45,8 @@ Ten pakiet zawiera pliki wspólne dla klienta i serwera AFS.
 Summary:	OpenAFS Filesystem Client
 Summary(pl):	Klient systemu plików OpenAFS
 Group:		Networking/Daemons
-Requires:	%{name} = %{epoch}:%{version}
-Requires:	%{name}-kernel = %{epoch}:%{version}
+Requires:	%{name} = %{epoch}:%{version}-%{release}
+Requires:	%{name}-kernel = %{epoch}:%{version}-%{release}
 
 %description client
 The AFS distributed filesystem. AFS is a distributed filesystem
@@ -68,8 +68,8 @@ Ten pakiet zawiera klienta do montowania i manipulowania AFS.
 Summary:	OpenAFS Filesystem PAM module
 Summary(pl):	Modu³ PAM dla klienta systemu plików OpenAFS
 Group:		Applications/System
-Requires:	%{name} = %{epoch}:%{version}
-Requires:	%{name}-kernel = %{epoch}:%{version}
+Requires:	%{name} = %{epoch}:%{version}-%{release}
+Requires:	%{name}-kernel = %{epoch}:%{version}-%{release}
 Requires:	%{name}-client = %{epoch}:%{version}-%{release}
 Obsoletes:	pam_afs
 
@@ -92,7 +92,7 @@ Ten pakiet zawiera modu³ PAM dla klienta.
 Summary:	OpenAFS Filesystem Kerberos4 Clients
 Summary(pl):	Klient Kerberos4 systemu plików OpenAFS
 Group:		Networking/Daemons
-Requires:	%{name} = %{epoch}:%{version}
+Requires:	%{name} = %{epoch}:%{version}-%{release}
 
 %description kerberos-client
 The AFS distributed filesystem. AFS is a distributed filesystem
@@ -113,7 +113,7 @@ Ten pakiet zawiera narzêdzia kerberos4 typu kpasswd.
 Summary:	OpenAFS Filesystem Kerberos4 Server
 Summary(pl):	Serwer Kerberos4 systemu plików OpenAFS
 Group:		Networking/Daemons
-Requires:	%{name} = %{epoch}:%{version}
+Requires:	%{name} = %{epoch}:%{version}-%{release}
 
 %description kerberos-server
 The AFS distributed filesystem. AFS is a distributed filesystem
@@ -135,8 +135,8 @@ Summary:	OpenAFS Filesystem Server
 Summary(pl):	Serwer systemu plików OpenAFS
 Group:		Networking/Daemons
 Requires(post):	grep
-Requires:	%{name} = %{epoch}:%{version}
-Requires:	%{name}-kernel = %{epoch}:%{version}
+Requires:	%{name} = %{epoch}:%{version}-%{release}
+Requires:	%{name}-kernel = %{epoch}:%{version}-%{release}
 
 %description server
 The AFS distributed filesystem. AFS is a distributed filesystem
@@ -240,7 +240,7 @@ rm -rf $RPM_BUILD_ROOT
 	DESTDIR=$RPM_BUILD_ROOT
 
 install -d $RPM_BUILD_ROOT/lib/modules/misc
-install -d $RPM_BUILD_ROOT/lib/security
+install -d $RPM_BUILD_ROOT/%{_lib}/security
 install -d $RPM_BUILD_ROOT/etc/openafs
 install -d $RPM_BUILD_ROOT/etc/rc.d/init.d
 install -d $RPM_BUILD_ROOT/etc/sysconfig
@@ -249,7 +249,7 @@ install -d $RPM_BUILD_ROOT/var/log/openafs
 install -d $RPM_BUILD_ROOT/afs
 
 mv $RPM_BUILD_ROOT%{_libdir}/%{name}/*.o $RPM_BUILD_ROOT/lib/modules/misc
-mv $RPM_BUILD_ROOT%{_libdir}/*pam* $RPM_BUILD_ROOT/lib/security
+mv $RPM_BUILD_ROOT%{_libdir}/*pam* $RPM_BUILD_ROOT/%{_lib}/security
 
 touch $RPM_BUILD_ROOT%{_sysconfdir}/%{name}/{CellServDB,SuidCells,ThisCell,cacheinfo}
 install src/afsd/afs.rc.linux $RPM_BUILD_ROOT/etc/rc.d/init.d/afs
@@ -389,7 +389,7 @@ echo
 
 %files -n pam-pam_afs
 %defattr(644,root,root,755)
-%attr(755,root,root) /lib/security/*
+%attr(755,root,root) /%{_lib}/security/*
 
 %files server
 %defattr(644,root,root,755)
