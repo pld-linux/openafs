@@ -10,9 +10,11 @@ Source0:	http://www.openafs.org/dl/openafs/%{version}/%{name}-%{version}-src.tar
 Patch0:		%{name}-Makefile.in.fix
 Patch1:		http://www.openafs.org/pages/security/xdr-updates-20020731.delta
 URL:		http://www.openafs.org/
-BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
+BuildRequires:	autoconf
+PreReq:		rc-scripts
+Requires(post,preun):	/sbin/chkconfig
 Requires:	openafs-kernel
-Prereq:		/sbin/chkconfig
+BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
 The AFS distributed filesystem. AFS is a distributed filesystem
@@ -219,7 +221,7 @@ rm -rf $RPM_BUILD_ROOT
 ### scripts
 ###
 %post
-chkconfig --add afs
+/sbin/chkconfig --add afs
 
 %post client
 echo
@@ -251,8 +253,8 @@ echo
 
 %preun
 if [ "$1" = "0" ] ; then
-        /etc/rc.d/init.d/afs stop
-        chkconfig --del afs
+	/etc/rc.d/init.d/afs stop
+	/sbin/chkconfig --del afs
 fi
 
 ###
