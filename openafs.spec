@@ -1,7 +1,9 @@
 #
-# TODO: FHS compliance (what is /afs, /usr/afs, /usr/vice, /usr/doc???)
+# TODO: FHS compliance:
+#	/afs (-> /mnt/afs?)
+#	/var/openafs/cache (-> /var/cache/openafs?)
 #
-#%define	kernver	2.2.0
+#%%define	kernver	2.2.0
 Summary:	OpenAFS distributed filesystem
 Summary(pl):	Rozproszony system plików OpenAFS
 Name:		openafs
@@ -17,7 +19,8 @@ URL:		http://www.openafs.org/
 BuildRequires:	autoconf
 PreReq:		rc-scripts
 Requires(post,preun):	/sbin/chkconfig
-Requires:	openafs-kernel
+Requires(post):	/sbin/ldconfig
+Requires:	%{name}-kernel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -32,7 +35,7 @@ OpenAFS packages but are not necessarily tied to a client or server.
 %description -l pl
 AFS jest rozproszonym systemem plików pozwalaj±cym na dzielenie plików
 miêdzy wieloma komputerami, tak¿e na ró¿nych platformach. AFS pozwala
-na kontrolê dostêpu, autentykacjê, backup i administrowanie.
+na kontrolê dostêpu, uwierzytalnianie, backup i administrowanie.
 
 Ten pakiet zawiera pliki wspólne dla klienta i serwera AFS.
 
@@ -40,7 +43,8 @@ Ten pakiet zawiera pliki wspólne dla klienta i serwera AFS.
 Summary:	OpenAFS Filesystem Client
 Summary(pl):	Klient systemu plików OpenAFS
 Group:		Networking/Daemons
-Requires:	openafs-kernel openafs
+Requires:	%{name} = %{version}
+Requires:	%{name}-kernel
 
 %description client
 The AFS distributed filesystem. AFS is a distributed filesystem
@@ -54,7 +58,7 @@ AFS.
 %description client -l pl
 AFS jest rozproszonym systemem plików pozwalaj±cym na dzielenie plików
 miêdzy wieloma komputerami, tak¿e na ró¿nych platformach. AFS pozwala
-na kontrolê dostêpu, autentykacjê, backup i administrowanie.
+na kontrolê dostêpu, uwierzytelnianie, backup i administrowanie.
 
 Ten pakiet zawiera klienta do montowania i manipulowania AFS.
 
@@ -62,7 +66,7 @@ Ten pakiet zawiera klienta do montowania i manipulowania AFS.
 Summary:	OpenAFS Filesystem Kerberos4 Clients
 Summary(pl):	Klient Kerberos4 systemu plików OpenAFS
 Group:		Networking/Daemons
-Requires:	openafs
+Requires:	%{name} = %{version}
 
 %description kerberos-client
 The AFS distributed filesystem. AFS is a distributed filesystem
@@ -70,12 +74,20 @@ allowing cross-platform sharing of files among multiple computers.
 Facilities are provided for access control, authentication, backup and
 administrative management.
 
-This package provides kerberos4 utilities like kpasswd
+This package provides kerberos4 utilities like kpasswd.
+
+%description kerneros-client -l pl
+AFS jest rozproszonym systemem plików pozwalaj±cym na dzielenie plików
+miêdzy wieloma komputerami, tak¿e na ró¿nych platformach. AFS pozwala
+na kontrolê dostêpu, uwierzytelnianie, backup i administrowanie.
+
+Ten pakiet zawiera narzêdzia kerberos4 typu kpasswd.
 
 %package kerberos-server
 Summary:	OpenAFS Filesystem Kerberos4 Server
+Summary(pl):	Serwer Kerberos4 systemu plików OpenAFS
 Group:		Networking/Daemons
-Requires:	openafs
+Requires:	%{name} = %{version}
 
 %description kerberos-server
 The AFS distributed filesystem. AFS is a distributed filesystem
@@ -83,13 +95,22 @@ allowing cross-platform sharing of files among multiple computers.
 Facilities are provided for access control, authentication, backup and
 administrative management.
 
-This package provides kerberos4 servers
+This package provides kerberos4 servers.
+
+%description  kerberos-server -l pl
+AFS jest rozproszonym systemem plików pozwalaj±cym na dzielenie plików
+miêdzy wieloma komputerami, tak¿e na ró¿nych platformach. AFS pozwala
+na kontrolê dostêpu, uwierzytelnianie, backup i administrowanie.
+
+Ten pakiet zawiera serwery kerberos4.
 
 %package server
 Summary:	OpenAFS Filesystem Server
 Summary(pl):	Serwer systemu plików OpenAFS
 Group:		Networking/Daemons
-Requires:	openafs-kernel openafs
+Requires(post):	grep
+Requires:	%{name} = %{version}
+Requires:	%{name}-kernel = %{version}
 
 %description server
 The AFS distributed filesystem. AFS is a distributed filesystem
@@ -103,7 +124,7 @@ Cell.
 %description server -l pl
 AFS jest rozproszonym systemem plików pozwalaj±cym na dzielenie plików
 miêdzy wieloma komputerami, tak¿e na ró¿nych platformach. AFS pozwala
-na kontrolê dostêpu, autentykacjê, backup i administrowanie.
+na kontrolê dostêpu, uwierzytelnianie, backup i administrowanie.
 
 Ten pakiet zawiera serwer do przechowywania plików w AFS.
 
@@ -125,7 +146,7 @@ shared libraries.
 %description devel -l pl
 AFS jest rozproszonym systemem plików pozwalaj±cym na dzielenie plików
 miêdzy wieloma komputerami, tak¿e na ró¿nych platformach. AFS pozwala
-na kontrolê dostêpu, autentykacjê, backup i administrowanie.
+na kontrolê dostêpu, uwierzytelnianie, backup i administrowanie.
 
 Ten pakiet zawiera biblioteki statyczne i nag³ówki potrzebne do
 kompilowania aplikacji z AFS. Aktualnie AFS nie dostarcza bibliotek
@@ -148,7 +169,7 @@ kernels.
 %description kernel -l pl
 AFS jest rozproszonym systemem plików pozwalaj±cym na dzielenie plików
 miêdzy wieloma komputerami, tak¿e na ró¿nych platformach. AFS pozwala
-na kontrolê dostêpu, autentykacjê, backup i administrowanie.
+na kontrolê dostêpu, uwierzytelnianie, backup i administrowanie.
 
 Ten pakiet zawiera prekompilowane modu³y j±dra do AFS.
 
@@ -181,12 +202,16 @@ Ten pakiet zawiera prekompilowane modu³y j±dra do AFS.
 
 %build
 %{__autoconf}
-%configure --with-linux-kernel-headers=%{_kernelsrcdir}
+%configure \
+	--with-linux-kernel-headers=%{_kernelsrcdir}
+
 %{__make}
 
 %install
 rm -rf $RPM_BUILD_ROOT
-make install DESTDIR=$RPM_BUILD_ROOT
+
+%{__make} install DESTDIR=$RPM_BUILD_ROOT
+
 mkdir -p $RPM_BUILD_ROOT/lib/modules/misc
 mkdir -p $RPM_BUILD_ROOT/lib/security
 mkdir -p $RPM_BUILD_ROOT/etc/openafs
@@ -195,11 +220,13 @@ mkdir -p $RPM_BUILD_ROOT/etc/sysconfig
 mkdir -p $RPM_BUILD_ROOT/var/openafs/cache
 mkdir -p $RPM_BUILD_ROOT/var/log/openafs
 mkdir -p $RPM_BUILD_ROOT/afs
-mv $RPM_BUILD_ROOT/%{_libdir}/%{name}/*.o $RPM_BUILD_ROOT/lib/modules/misc
-mv $RPM_BUILD_ROOT/%{_libdir}/*pam* $RPM_BUILD_ROOT/lib/security
-touch $RPM_BUILD_ROOT/%{_sysconfdir}/%{name}/{CellServDB,SuidCells,ThisCell,cacheinfo}
-install -m744 src/afsd/afs.rc.linux $RPM_BUILD_ROOT/etc/rc.d/init.d/afs
-echo "AFS_SERVER=on" > $RPM_BUILD_ROOT/%{_sysconfdir}/sysconfig/afs
+
+mv $RPM_BUILD_ROOT%{_libdir}/%{name}/*.o $RPM_BUILD_ROOT/lib/modules/misc
+mv $RPM_BUILD_ROOT%{_libdir}/*pam* $RPM_BUILD_ROOT/lib/security
+
+touch $RPM_BUILD_ROOT%{_sysconfdir}/%{name}/{CellServDB,SuidCells,ThisCell,cacheinfo}
+install src/afsd/afs.rc.linux $RPM_BUILD_ROOT/etc/rc.d/init.d/afs
+echo "AFS_SERVER=on" > $RPM_BUILD_ROOT/etc/sysconfig/afs
 
 ###
 ### clean
@@ -211,12 +238,23 @@ rm -rf $RPM_BUILD_ROOT
 ### scripts
 ###
 %post
+/sbin/ldconfig
 /sbin/chkconfig --add afs
 if [ -f /var/lock/subsys/afs ]; then
 	/etc/rc.d/init.d/afs restart >&2
 else
 	echo "Run \"/etc/rc.d/init.d/afs start\" to start AFS server." >&2
 fi
+
+%preun
+if [ "$1" = "0" ]; then
+	if [ -f /var/lock/subsys/afs ]; then
+		/etc/rc.d/init.d/afs stop
+	fi
+	/sbin/chkconfig --del afs
+fi
+
+%postun	-p /sbin/ldconfig
 
 %post client
 echo
@@ -246,21 +284,13 @@ echo
 echo Be sure to edit /etc/sysconfig/afs and turn AFS_SERVER on
 echo
 
-%preun
-if [ "$1" = "0" ]; then
-	if [ -f /var/lock/subsys/afs ]; then
-		/etc/rc.d/init.d/afs stop
-	fi
-	/sbin/chkconfig --del afs
-fi
-
 ###
 ### file lists
 ###
 %files
 %defattr(644,root,root,755)
-%config /etc/sysconfig/afs
-/etc/rc.d/init.d/afs
+%config(noreplace) %verify(not size mtime md5) /etc/sysconfig/afs
+%attr(754,root,root) /etc/rc.d/init.d/afs
 %attr(755,root,root) %{_bindir}/bos
 %attr(755,root,root) %{_bindir}/fs
 %attr(755,root,root) %{_bindir}/klog
@@ -289,9 +319,6 @@ fi
 %attr(755,root,root) %{_bindir}/up
 %attr(755,root,root) %{_bindir}/xstat_cm_test
 %attr(755,root,root) %{_bindir}/xstat_fs_test
-%attr(755,root,root) %{_libdir}/libafsauthent.so.1.0
-%attr(755,root,root) %{_libdir}/libafsrpc.so.1.0
-%{_libdir}/libuafs.a
 %attr(755,root,root) %{_sbindir}/bos_util
 %attr(755,root,root) %{_sbindir}/copyauth
 %attr(755,root,root) %{_sbindir}/fms
@@ -305,30 +332,37 @@ fi
 %attr(755,root,root) %{_sbindir}/rxdebug
 %attr(755,root,root) %{_sbindir}/uss
 %attr(755,root,root) %{_sbindir}/vsys
+%attr(755,root,root) %{_libdir}/libafsauthent.so.1.0
+%attr(755,root,root) %{_libdir}/libafsrpc.so.1.0
+%{_libdir}/libuafs.a
+%dir %{_libdir}/%{name}
 
 %files kerberos-client
-%{_bindir}/kpasswd
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_bindir}/kpasswd
 %attr(755,root,root) %{_bindir}/pagsh
 
 %files kerberos-server
+%defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/%{name}/kaserver
-%attr(755,root,root) %{_bindir}/compile_et
+# conflict with e2fsprogs
+#%attr(755,root,root) %{_bindir}/compile_et
 
 %files client
 %defattr(644,root,root,755)
 %dir /afs
 %dir /var/openafs/cache
+%dir %{_sysconfdir}/%{name}
 %config %{_sysconfdir}/%{name}/CellServDB
 %config %{_sysconfdir}/%{name}/SuidCells
 %config %{_sysconfdir}/%{name}/ThisCell
 %config %{_sysconfdir}/%{name}/cacheinfo
 %attr(755,root,root) %{_bindir}/cmdebug
-%{_sbindir}/afsd
+%attr(755,root,root) %{_sbindir}/afsd
 /lib/security/*
 
 %files server
 %defattr(644,root,root,755)
-%dir %{_sbindir}
 %dir /var/log/openafs
 %attr(755,root,root) %{_sbindir}/bosserver
 %attr(755,root,root) %{_libdir}/%{name}/buserver
