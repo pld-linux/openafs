@@ -4,10 +4,11 @@ Summary(pl):	Rozproszony system plików OpenAFS
 Name:		openafs
 Version:	1.2.2a
 Release:	1
-License:	IPL
+License:	IBM Public License
 Group:		Networking/Daemons
 Source0:	http://www.openafs.org/dl/openafs/%{version}/%{name}-%{version}-src.tar.bz2
 Patch0:		%{name}-Makefile.in.fix
+Patch1:		http://www.openafs.org/pages/security/xdr-updates-20020731.delta
 URL:		http://www.openafs.org/
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Requires:	openafs-kernel
@@ -141,8 +142,8 @@ Ten pakiet zawiera ¼ród³a do samodzielnego skompilowania modu³u AFS.
 
 %prep
 %setup -q
-
 %patch0 -p0
+%patch1 -p1
 
 %build
 %{__autoconf}
