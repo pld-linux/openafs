@@ -10,6 +10,7 @@ Release:	1
 License:	IBM Public License
 Group:		Networking/Daemons
 Source0:	http://www.openafs.org/dl/openafs/%{version}/%{name}-%{version}-src.tar.bz2
+# Source0-md5:	652f20deb923c225cdb824de1d201019
 Patch0:		%{name}-Makefile.in.fix
 Patch1:		http://www.openafs.org/pages/security/xdr-updates-20020731.delta
 URL:		http://www.openafs.org/
