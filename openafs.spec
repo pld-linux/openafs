@@ -1,16 +1,18 @@
 %define	kernver	2.2.0
 Summary:	OpenAFS distributed filesystem
+Summary(pl):	Rozproszony system plików OpenAFS
 Name:		openafs
 Version:	1.0.1
 Release:	1
-Copyright:	IPL
-BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
-Source0:	http://www.openafs.org/dl/openafs/${afsvers}/%{name}-%{version}-src.tar.gz
-Source1:	%{name}-redhat.tar.gz
+License:	IPL
 Group:		Networking/Daemons
 Group(de):	Netzwerkwesen/Server
 Group(pl):	Sieciowe/Serwery
+Source0:	http://www.openafs.org/dl/openafs/${afsvers}/%{name}-%{version}-src.tar.gz
+Source1:	%{name}-redhat.tar.gz
+BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Requires:	openafs-kernel
+Prereq:		/sbin/chkconfig
 
 %description
 The AFS distributed filesystem. AFS is a distributed filesystem
@@ -21,12 +23,20 @@ administrative management.
 This package provides common files shared across all the various
 OpenAFS packages but are not necessarily tied to a client or server.
 
+%description -l pl
+AFS jest rozproszonym systemem plików pozwalaj±cym na dzielenie plików
+miêdzy wieloma komputerami, tak¿e na ró¿nych platformach. AFS pozwala
+na kontrolê dostêpu, autentykacjê, backup i administrowanie.
+
+Ten pakiet zawiera pliki wspólne dla klienta i serwera AFS.
+
 %package client
-Requires:	openafs-kernel openafs
 Summary:	OpenAFS Filesystem Client
+Summary(pl):	Klient systemu plików OpenAFS
 Group:		Networking/Daemons
 Group(de):	Netzwerkwesen/Server
 Group(pl):	Sieciowe/Serwery
+Requires:	openafs-kernel openafs
 
 %description client
 The AFS distributed filesystem. AFS is a distributed filesystem
@@ -37,12 +47,20 @@ administrative management.
 This package provides basic client support to mount and manipulate
 AFS.
 
+%description client -l pl
+AFS jest rozproszonym systemem plików pozwalaj±cym na dzielenie plików
+miêdzy wieloma komputerami, tak¿e na ró¿nych platformach. AFS pozwala
+na kontrolê dostêpu, autentykacjê, backup i administrowanie.
+
+Ten pakiet zawiera klienta do montowania i manipulowania AFS.
+
 %package server
-Requires:	openafs-kernel openafs
 Summary:	OpenAFS Filesystem Server
+Summary(pl):	Serwer systemu plików OpenAFS
 Group:		Networking/Daemons
 Group(de):	Netzwerkwesen/Server
 Group(pl):	Sieciowe/Serwery
+Requires:	openafs-kernel openafs
 
 %description server
 The AFS distributed filesystem. AFS is a distributed filesystem
@@ -53,12 +71,24 @@ administrative management.
 This package provides basic server support to host files in an AFS
 Cell.
 
+%description server -l pl
+AFS jest rozproszonym systemem plików pozwalaj±cym na dzielenie plików
+miêdzy wieloma komputerami, tak¿e na ró¿nych platformach. AFS pozwala
+na kontrolê dostêpu, autentykacjê, backup i administrowanie.
+
+Ten pakiet zawiera serwer do przechowywania plików w AFS.
+
 %package devel
 Summary:	OpenAFS Development Libraries and Headers
+Summary(pl):	Pliki nag³ówkowe i biblioteki OpenAFS
 Group:		Development/Libraries
 Group(de):	Entwicklung/Libraries
+Group(es):	Desarrollo/Bibliotecas
 Group(fr):	Development/Librairies
 Group(pl):	Programowanie/Biblioteki
+Group(pt_BR):	Desenvolvimento/Bibliotecas
+Group(ru):	òÁÚÒÁÂÏÔËÁ/âÉÂÌÉÏÔÅËÉ
+Group(uk):	òÏÚÒÏÂËÁ/â¦ÂÌ¦ÏÔÅËÉ
 
 %description devel
 The AFS distributed filesystem. AFS is a distributed filesystem
@@ -70,8 +100,18 @@ This package provides static development libraries and headers needed
 to compile AFS applications. Note: AFS currently does not provide
 shared libraries.
 
+%description devel -l pl
+AFS jest rozproszonym systemem plików pozwalaj±cym na dzielenie plików
+miêdzy wieloma komputerami, tak¿e na ró¿nych platformach. AFS pozwala
+na kontrolê dostêpu, autentykacjê, backup i administrowanie.
+
+Ten pakiet zawiera biblioteki statyczne i nag³ówki potrzebne do
+kompilowania aplikacji z AFS. Aktualnie AFS nie dostarcza bibliotek
+wspó³dzielonych.
+
 %package kernel
 Summary:	OpenAFS Kernel Module(s)
+Summary(pl):	Modu³(y) j±dra OpenAFS
 Group:		Networking/Daemons
 Group(de):	Netzwerkwesen/Server
 Group(pl):	Sieciowe/Serwery
@@ -85,8 +125,16 @@ administrative management.
 This package provides precompiled AFS kernel modules for various
 kernels.
 
+%description kernel -l pl
+AFS jest rozproszonym systemem plików pozwalaj±cym na dzielenie plików
+miêdzy wieloma komputerami, tak¿e na ró¿nych platformach. AFS pozwala
+na kontrolê dostêpu, autentykacjê, backup i administrowanie.
+
+Ten pakiet zawiera prekompilowane modu³y j±dra do AFS.
+
 %package kernel-source
 Summary:	OpenAFS Kernel Module source tree
+Summary(pl):	¬ród³a modu³u j±dra AFS
 Group:		Networking/Daemons
 Group(de):	Netzwerkwesen/Server
 Group(pl):	Sieciowe/Serwery
@@ -100,13 +148,20 @@ administrative management.
 This package provides the source code to build your own AFS kernel
 module.
 
+%description kernel-source -l pl
+AFS jest rozproszonym systemem plików pozwalaj±cym na dzielenie plików
+miêdzy wieloma komputerami, tak¿e na ró¿nych platformach. AFS pozwala
+na kontrolê dostêpu, autentykacjê, backup i administrowanie.
+
+Ten pakiet zawiera ¼ród³a do samodzielnego skompilowania modu³u AFS.
+
 %prep
 %setup -q -a 1
 install -d %{_target_platform}/{dest,obj} links
-ln -s src/Makefile Makefile
-ln -s %{_target_platform}/dest dest
-ln -s %{_target_platform}/obj obj
-ln -s %{_target_platform} @sys
+ln -sf src/Makefile Makefile
+ln -sf %{_target_platform}/dest dest
+ln -sf %{_target_platform}/obj obj
+ln -sf %{_target_platform} @sys
 %{__make} links
 
 %build
@@ -177,7 +232,7 @@ install src/LICENSE $RPM_BUILD_ROOT%{_prefix}/doc/openafs-%{afsvers}
 ### clean
 ###
 %clean
-#rm -rf $RPM_BUILD_ROOT
+rm -rf $RPM_BUILD_ROOT
 
 ###
 ### scripts
@@ -214,7 +269,7 @@ echo Be sure to edit /etc/sysconfig/afs and turn AFS_SERVER on
 echo
 
 %preun
-if [ $1 = 0 ] ; then
+if [ "$1" = "0" ] ; then
         /etc/rc.d/init.d/afs stop
         chkconfig --del afs
 fi
