@@ -13,6 +13,7 @@ Epoch:		1
 License:	IBM Public License
 Group:		Networking/Daemons
 Source0:	http://www.openafs.org/dl/openafs/%{version}/%{name}-%{version}-src.tar.bz2
+# Source0-md5:	7c94e5d024d16c581a363de52ed21f95
 Patch0:		%{name}-Makefile.in.fix
 Patch3:		%{name}-venus.patch
 URL:		http://www.openafs.org/
