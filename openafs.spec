@@ -8,7 +8,8 @@ Summary:	OpenAFS distributed filesystem
 Summary(pl):	Rozproszony system plików OpenAFS
 Name:		openafs
 Version:	1.2.10
-Release:	1
+Release:	2
+Epoch:		1
 License:	IBM Public License
 Group:		Networking/Daemons
 Source0:	http://www.openafs.org/dl/openafs/%{version}/%{name}-%{version}-src.tar.bz2
@@ -60,6 +61,31 @@ miêdzy wieloma komputerami, tak¿e na ró¿nych platformach. AFS pozwala
 na kontrolê dostêpu, uwierzytelnianie, backup i administrowanie.
 
 Ten pakiet zawiera klienta do montowania i manipulowania AFS.
+
+%package -n pam-pam_afs
+Summary:	OpenAFS Filesystem PAM module
+Summary(pl):	Klient systemu plików OpenAFS
+Group:		Applications/System
+Requires:	%{name} = %{version}
+Requires:	%{name}-kernel
+Requires:	%{name}-client
+BuildRequires:	pam-devel
+Obsoletes:	pam_afs
+
+%description -n pam-pam_afs
+The AFS distributed filesystem. AFS is a distributed filesystem
+allowing cross-platform sharing of files among multiple computers.
+Facilities are provided for access control, authentication, backup and
+administrative management.
+
+This package provides PAM client module.
+
+%description -n pam-pam_afs -l pl
+AFS jest rozproszonym systemem plików pozwalaj±cym na dzielenie plików
+miêdzy wieloma komputerami, tak¿e na ró¿nych platformach. AFS pozwala
+na kontrolê dostêpu, uwierzytelnianie, backup i administrowanie.
+
+Ten pakiet zawiera modu³ PAM dla klienta.
 
 %package kerberos-client
 Summary:	OpenAFS Filesystem Kerberos4 Clients
@@ -262,13 +288,18 @@ echo /etc/openafs/cacheinfo file to change this before
 echo running AFS for the first time. You should also
 echo set your home cell in /etc/openafs/ThisCell.
 echo
-echo Also, you may want to edit /etc/pam.d/login and
-echo possibly others there to get an AFS token on login.
-echo Put the line:
+echo Also, you may want to INSTALL the PAM module (package: pam-pam_afs)
+echo and then EDIT /etc/pam.d/login and echo possibly others there
+echo to get an AFS token on login.
+echo
+
+%post -n pam-pam_afs
+echo You may want to edit /etc/pam.d/login and echo possibly others there
+echo to get an AFS token on login. Put the line:
 echo
 echo    auth	   sufficient   /lib/security/pam_afs.so try_first_pass ignore_root
 echo
-echo before the one for pwdb.
+echo before the one for pwdb/unix.
 echo
 
 %post server
@@ -359,6 +390,9 @@ echo
 %config %{_sysconfdir}/%{name}/cacheinfo
 %attr(755,root,root) %{_bindir}/cmdebug
 %attr(755,root,root) %{_sbindir}/afsd
+
+%files -n pam-pam_afs
+%defattr(644,root,root,755)
 /lib/security/*
 
 %files server
