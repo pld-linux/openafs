@@ -107,7 +107,7 @@ ln -s src/Makefile Makefile
 ln -s %{_target_platform}/dest dest
 ln -s %{_target_platform}/obj obj
 ln -s %{_target_platform} @sys
-make links
+%{__make} links
 
 %build
 %{__make} \
