@@ -183,7 +183,7 @@ install src/LICENSE $RPM_BUILD_ROOT%{_prefix}/doc/openafs-%{afsvers}
 ### scripts
 ###
 %post
-NAME=afs; %chkconfig_add
+chkconfig --add afs
 
 %post client
 echo
@@ -214,7 +214,10 @@ echo Be sure to edit /etc/sysconfig/afs and turn AFS_SERVER on
 echo
 
 %preun
-NAME=afs; %chkconfig_del
+if [ $1 = 0 ] ; then
+        /etc/rc.d/init.d/afs stop
+        chkconfig --del afs
+fi
 
 ###
 ### file lists
