@@ -5,14 +5,14 @@
 Summary:	OpenAFS distributed filesystem
 Summary(pl):	Rozproszony system plików OpenAFS
 Name:		openafs
-Version:	1.2.8
+Version:	1.2.9a
 Release:	1
 License:	IBM Public License
 Group:		Networking/Daemons
 Source0:	http://www.openafs.org/dl/openafs/%{version}/%{name}-%{version}-src.tar.bz2
-# Source0-md5:	652f20deb923c225cdb824de1d201019
 Patch0:		%{name}-Makefile.in.fix
 Patch1:		http://www.openafs.org/pages/security/xdr-updates-20020731.delta
+Patch2:		openafs-uss-fix.patch
 URL:		http://www.openafs.org/
 BuildRequires:	autoconf
 PreReq:		rc-scripts
@@ -150,10 +150,11 @@ Ten pakiet zawiera ¼ród³a do samodzielnego skompilowania modu³u AFS.
 %setup -q
 %patch0 -p0
 #%patch1 -p1
+%patch2 -p1
 
 %build
 %{__autoconf}
-%configure
+%configure --with-linux-kernel-headers=%{_kernelsrcdir}
 %{__make}
 
 %install
