@@ -7,14 +7,13 @@
 Summary:	OpenAFS distributed filesystem
 Summary(pl):	Rozproszony system plików OpenAFS
 Name:		openafs
-Version:	1.2.9a
+Version:	1.2.10
 Release:	1
 License:	IBM Public License
 Group:		Networking/Daemons
 Source0:	http://www.openafs.org/dl/openafs/%{version}/%{name}-%{version}-src.tar.bz2
 Patch0:		%{name}-Makefile.in.fix
-Patch1:		http://www.openafs.org/pages/security/xdr-updates-20020731.delta
-Patch2:		openafs-uss-fix.patch
+Patch3:		%{name}-venus.patch
 URL:		http://www.openafs.org/
 BuildRequires:	autoconf
 PreReq:		rc-scripts
@@ -198,7 +197,7 @@ Ten pakiet zawiera prekompilowane modu³y j±dra do AFS.
 %setup -q
 %patch0 -p0
 #%patch1 -p1
-%patch2 -p1
+#%patch2 -p1
 
 %build
 %{__autoconf}
@@ -275,7 +274,7 @@ echo
 %post server
 if [ -f /etc/sysconfig/afs ]; then
 	srv=`grep ^AFS_SERVER /etc/sysconfig/afs | sed 's/^AFS_SERVER[\s]*=[\s]*//'`
-	if [ $srv eq "on"]; then
+	if [ "$srv" = "on" ]; then
 		exit 0
 	fi
 fi
@@ -324,7 +323,8 @@ echo
 %attr(755,root,root) %{_sbindir}/fms
 %attr(755,root,root) %{_sbindir}/kadb_check
 %attr(755,root,root) %{_sbindir}/kdb
-%attr(755,root,root) %{_sbindir}/kdump-2.4.20
+%attr(755,root,root) %{_sbindir}/kdump
+%attr(755,root,root) %{_sbindir}/kdump-*
 %attr(755,root,root) %{_sbindir}/kseal
 %attr(755,root,root) %{_sbindir}/pt_util
 %attr(755,root,root) %{_sbindir}/read_tape
