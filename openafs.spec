@@ -140,7 +140,7 @@ na kontrolê dostêpu, autentykacjê, backup i administrowanie.
 Ten pakiet zawiera ¼ród³a do samodzielnego skompilowania modu³u AFS.
 
 %prep
-%setup -q 
+%setup -q
 
 %patch0 -p0
 
@@ -222,15 +222,15 @@ chkconfig --add afs
 
 %post client
 echo
-echo The AFS cache is configured for 100 MB. Edit the 
+echo The AFS cache is configured for 100 MB. Edit the
 echo /usr/vice/etc/cachinfo file to change this before
 echo running AFS for the first time. You should also
 echo set your home cell in /usr/vice/etc/ThisCell.
 echo
-echo Also, you may want to edit /etc/pam.d/login and 
+echo Also, you may want to edit /etc/pam.d/login and
 echo possibly others there to get an AFS token on login.
-echo Put the line:	
-echo 
+echo Put the line:
+echo
 echo    auth	   sufficient   /lib/security/pam_afs.so try_first_pass ignore_root
 echo
 echo before the one for pwdb.
