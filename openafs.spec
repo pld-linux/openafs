@@ -17,6 +17,7 @@ Patch0:		%{name}-Makefile.in.fix
 Patch3:		%{name}-venus.patch
 URL:		http://www.openafs.org/
 BuildRequires:	autoconf
+BuildRequires:	pam-devel
 PreReq:		rc-scripts
 Requires(post,preun):	/sbin/chkconfig
 Requires(post):	/sbin/ldconfig
@@ -43,8 +44,8 @@ Ten pakiet zawiera pliki wspólne dla klienta i serwera AFS.
 Summary:	OpenAFS Filesystem Client
 Summary(pl):	Klient systemu plików OpenAFS
 Group:		Networking/Daemons
-Requires:	%{name} = %{version}
-Requires:	%{name}-kernel
+Requires:	%{name} = %{epoch}:%{version}
+Requires:	%{name}-kernel = %{epoch}:%{version}
 
 %description client
 The AFS distributed filesystem. AFS is a distributed filesystem
@@ -66,10 +67,9 @@ Ten pakiet zawiera klienta do montowania i manipulowania AFS.
 Summary:	OpenAFS Filesystem PAM module
 Summary(pl):	Modu³ PAM dla klienta systemu plików OpenAFS
 Group:		Applications/System
-Requires:	%{name} = %{version}
-Requires:	%{name}-kernel
-Requires:	%{name}-client
-BuildRequires:	pam-devel
+Requires:	%{name} = %{epoch}:%{version}
+Requires:	%{name}-kernel = %{epoch}:%{version}
+Requires:	%{name}-client = %{epoch}:%{version}-%{release}
 Obsoletes:	pam_afs
 
 %description -n pam-pam_afs
@@ -91,7 +91,7 @@ Ten pakiet zawiera modu³ PAM dla klienta.
 Summary:	OpenAFS Filesystem Kerberos4 Clients
 Summary(pl):	Klient Kerberos4 systemu plików OpenAFS
 Group:		Networking/Daemons
-Requires:	%{name} = %{version}
+Requires:	%{name} = %{epoch}:%{version}
 
 %description kerberos-client
 The AFS distributed filesystem. AFS is a distributed filesystem
@@ -112,7 +112,7 @@ Ten pakiet zawiera narzêdzia kerberos4 typu kpasswd.
 Summary:	OpenAFS Filesystem Kerberos4 Server
 Summary(pl):	Serwer Kerberos4 systemu plików OpenAFS
 Group:		Networking/Daemons
-Requires:	%{name} = %{version}
+Requires:	%{name} = %{epoch}:%{version}
 
 %description kerberos-server
 The AFS distributed filesystem. AFS is a distributed filesystem
@@ -134,8 +134,8 @@ Summary:	OpenAFS Filesystem Server
 Summary(pl):	Serwer systemu plików OpenAFS
 Group:		Networking/Daemons
 Requires(post):	grep
-Requires:	%{name} = %{version}
-Requires:	%{name}-kernel = %{version}
+Requires:	%{name} = %{epoch}:%{version}
+Requires:	%{name}-kernel = %{epoch}:%{version}
 
 %description server
 The AFS distributed filesystem. AFS is a distributed filesystem
@@ -235,16 +235,17 @@ Ten pakiet zawiera prekompilowane modu³y j±dra do AFS.
 %install
 rm -rf $RPM_BUILD_ROOT
 
-%{__make} install DESTDIR=$RPM_BUILD_ROOT
+%{__make} install \
+	DESTDIR=$RPM_BUILD_ROOT
 
-mkdir -p $RPM_BUILD_ROOT/lib/modules/misc
-mkdir -p $RPM_BUILD_ROOT/lib/security
-mkdir -p $RPM_BUILD_ROOT/etc/openafs
-mkdir -p $RPM_BUILD_ROOT/etc/rc.d/init.d
-mkdir -p $RPM_BUILD_ROOT/etc/sysconfig
-mkdir -p $RPM_BUILD_ROOT/var/openafs/cache
-mkdir -p $RPM_BUILD_ROOT/var/log/openafs
-mkdir -p $RPM_BUILD_ROOT/afs
+install -d $RPM_BUILD_ROOT/lib/modules/misc
+install -d $RPM_BUILD_ROOT/lib/security
+install -d $RPM_BUILD_ROOT/etc/openafs
+install -d $RPM_BUILD_ROOT/etc/rc.d/init.d
+install -d $RPM_BUILD_ROOT/etc/sysconfig
+install -d $RPM_BUILD_ROOT/var/openafs/cache
+install -d $RPM_BUILD_ROOT/var/log/openafs
+install -d $RPM_BUILD_ROOT/afs
 
 mv $RPM_BUILD_ROOT%{_libdir}/%{name}/*.o $RPM_BUILD_ROOT/lib/modules/misc
 mv $RPM_BUILD_ROOT%{_libdir}/*pam* $RPM_BUILD_ROOT/lib/security
@@ -253,15 +254,9 @@ touch $RPM_BUILD_ROOT%{_sysconfdir}/%{name}/{CellServDB,SuidCells,ThisCell,cache
 install src/afsd/afs.rc.linux $RPM_BUILD_ROOT/etc/rc.d/init.d/afs
 echo "AFS_SERVER=on" > $RPM_BUILD_ROOT/etc/sysconfig/afs
 
-###
-### clean
-###
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-###
-### scripts
-###
 %post
 /sbin/ldconfig
 /sbin/chkconfig --add afs
@@ -393,7 +388,7 @@ echo
 
 %files -n pam-pam_afs
 %defattr(644,root,root,755)
-/lib/security/*
+%attr(755,root,root) /lib/security/*
 
 %files server
 %defattr(644,root,root,755)
