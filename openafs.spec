@@ -2,7 +2,7 @@
 Summary:	OpenAFS distributed filesystem
 Summary(pl):	Rozproszony system plików OpenAFS
 Name:		openafs
-Version:	1.2.2a
+Version:	1.2.8
 Release:	1
 License:	IBM Public License
 Group:		Networking/Daemons
@@ -145,7 +145,7 @@ Ten pakiet zawiera ¼ród³a do samodzielnego skompilowania modu³u AFS.
 %prep
 %setup -q
 %patch0 -p0
-%patch1 -p1
+#%patch1 -p1
 
 %build
 %{__autoconf}
