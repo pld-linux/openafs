@@ -145,7 +145,7 @@ Ten pakiet zawiera ¼ród³a do samodzielnego skompilowania modu³u AFS.
 %patch0 -p0
 
 %build
-autoconf
+%{__autoconf}
 %configure
 %{__make}
 
