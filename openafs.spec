@@ -58,6 +58,33 @@ na kontrolê dostêpu, autentykacjê, backup i administrowanie.
 
 Ten pakiet zawiera klienta do montowania i manipulowania AFS.
 
+%package kerberos-client
+Summary:	OpenAFS Filesystem Kerberos4 Clients
+Summary(pl):	Klient Kerberos4 systemu plików OpenAFS
+Group:		Networking/Daemons
+Requires:	openafs
+
+%description kerberos-client
+The AFS distributed filesystem. AFS is a distributed filesystem
+allowing cross-platform sharing of files among multiple computers.
+Facilities are provided for access control, authentication, backup and
+administrative management.
+
+This package provides kerberos4 utilities like kpasswd
+
+%package kerberos-server
+Summary:	OpenAFS Filesystem Kerberos4 Server
+Group:		Networking/Daemons
+Requires:	openafs
+
+%description kerberos-server
+The AFS distributed filesystem. AFS is a distributed filesystem
+allowing cross-platform sharing of files among multiple computers.
+Facilities are provided for access control, authentication, backup and
+administrative management.
+
+This package provides kerberos4 servers
+
 %package server
 Summary:	OpenAFS Filesystem Server
 Summary(pl):	Serwer systemu plików OpenAFS
@@ -125,26 +152,26 @@ na kontrolê dostêpu, autentykacjê, backup i administrowanie.
 
 Ten pakiet zawiera prekompilowane modu³y j±dra do AFS.
 
-%package kernel-source
-Summary:	OpenAFS Kernel Module source tree
-Summary(pl):	¬ród³a modu³u j±dra AFS
-Group:		Networking/Daemons
+#%package kernel-source
+#Summary:	OpenAFS Kernel Module source tree
+#Summary(pl):	¬ród³a modu³u j±dra AFS
+#Group:		Networking/Daemons
 
-%description kernel-source
-The AFS distributed filesystem. AFS is a distributed filesystem
-allowing cross-platform sharing of files among multiple computers.
-Facilities are provided for access control, authentication, backup and
-administrative management.
+#%description kernel-source
+#The AFS distributed filesystem. AFS is a distributed filesystem
+#allowing cross-platform sharing of files among multiple computers.
+#Facilities are provided for access control, authentication, backup and
+#administrative management.
 
-This package provides the source code to build your own AFS kernel
-module.
+#This package provides the source code to build your own AFS kernel
+#module.
 
-%description kernel-source -l pl
-AFS jest rozproszonym systemem plików pozwalaj±cym na dzielenie plików
-miêdzy wieloma komputerami, tak¿e na ró¿nych platformach. AFS pozwala
-na kontrolê dostêpu, autentykacjê, backup i administrowanie.
+#%description kernel-source -l pl
+#AFS jest rozproszonym systemem plików pozwalaj±cym na dzielenie plików
+#miêdzy wieloma komputerami, tak¿e na ró¿nych platformach. AFS pozwala
+#na kontrolê dostêpu, autentykacjê, backup i administrowanie.
 
-Ten pakiet zawiera ¼ród³a do samodzielnego skompilowania modu³u AFS.
+#Ten pakiet zawiera ¼ród³a do samodzielnego skompilowania modu³u AFS.
 
 %prep
 %setup -q
@@ -159,53 +186,20 @@ Ten pakiet zawiera ¼ród³a do samodzielnego skompilowania modu³u AFS.
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{_sbindir},/asf,,/etc/{sysconfig,rc.d/init.d}} \
-	$RPM_BUILD_ROOT{%{_sysconfdir}/openafs,/lib/security} \
-	$RPM_BUILD_ROOT%{_prefix}/{afs/logs,/vice/{etc,cache}}
-
-# Copy files from dest to the appropriate places in BuildRoot
-tar cf - -C dest bin include lib | tar xf - -C $RPM_BUILD_ROOT%{_prefix}
-tar cf - -C dest%{_sysconfdir} . | tar xf - -C $RPM_BUILD_ROOT%{_sbindir}
-tar cf - -C dest/root.server%{_prefix}/afs bin | tar xf - -C $RPM_BUILD_ROOT%{_prefix}/afs
-tar cf - -C dest/root.client%{_prefix}/vice%{_sysconfdir} afsd modload | tar xf - -C $RPM_BUILD_ROOT%{_prefix}/vice%{_sysconfdir}
-
-# Copy root.client config files
-install dest/root.client%{_prefix}/vice%{_sysconfdir}/afs.conf $RPM_BUILD_ROOT/etc/sysconfig/afs
-install dest/root.client%{_prefix}/vice%{_sysconfdir}/afs.rc $RPM_BUILD_ROOT/etc/rc.d/init.d/afs
-
-# Copy PAM modules
-install dest/lib/pam* $RPM_BUILD_ROOT/lib/security
-
-# Populate %{_prefix}/vice%{_sysconfdir}
-tar cf - -C redhat%{_prefix}_vice_etc . | tar xf - -C $RPM_BUILD_ROOT%{_prefix}/vice%{_sysconfdir}
-
-#
-# install kernel-source
-#
-
-# Install the kernel module source tree
-install -d $RPM_BUILD_ROOT%{_prefix}/src/openafs-kernel-%{afsvers}/src
-tar cf - -C obj/libafs Makefile afs afsint rx | tar xf - -C $RPM_BUILD_ROOT%{_prefix}/src/openafs-kernel-%{afsvers}/src
-
-# Copy Makefile.common, by hand (it's usually a symlink)
-install obj/libafs/Makefile.common $RPM_BUILD_ROOT%{_prefix}/src/openafs-kernel-%{afsvers}/src
-
-# Next, copy the LICENSE, README, and top-level Makefile
-install src/LICENSE $RPM_BUILD_ROOT%{_prefix}/src/openafs-kernel-%{afsvers}/LICENSE.IBM
-install redhat/LICENSE.Sun $RPM_BUILD_ROOT%{_prefix}/src/openafs-kernel-%{afsvers}
-install redhat/README $RPM_BUILD_ROOT%{_prefix}/src/openafs-kernel-%{afsvers}
-install redhat/Makefile $RPM_BUILD_ROOT%{_prefix}/src/openafs-kernel-%{afsvers}
-
-# Patch the Makefile
-cat redhat/Makefile.libafs.patch | (cd $RPM_BUILD_ROOT%{_prefix}/src/openafs-kernel-%{afsvers}/src; patch)
-
-#
-# Install DOCUMENTATION
-#
-
-# Build the DOC directory
-install -d $RPM_BUILD_ROOT%{_prefix}/doc/openafs-%{afsvers}
-install src/LICENSE $RPM_BUILD_ROOT%{_prefix}/doc/openafs-%{afsvers}
+make install DESTDIR=$RPM_BUILD_ROOT
+mkdir -p $RPM_BUILD_ROOT/lib/modules/misc
+mkdir -p $RPM_BUILD_ROOT/lib/security
+mkdir -p $RPM_BUILD_ROOT/etc/openafs
+mkdir -p $RPM_BUILD_ROOT/etc/rc.d/init.d
+mkdir -p $RPM_BUILD_ROOT/etc/sysconfig
+mkdir -p $RPM_BUILD_ROOT/var/openafs/cache
+mkdir -p $RPM_BUILD_ROOT/var/log/openafs
+mkdir -p $RPM_BUILD_ROOT/afs
+mv $RPM_BUILD_ROOT/%{_libdir}/%{name}/*.o $RPM_BUILD_ROOT/lib/modules/misc
+mv $RPM_BUILD_ROOT/%{_libdir}/*pam* $RPM_BUILD_ROOT/lib/security
+touch $RPM_BUILD_ROOT/%{_sysconfdir}/%{name}/{CellServDB,SuidCells,ThisCell,cacheinfo}
+install -m744 src/afsd/afs.rc.linux $RPM_BUILD_ROOT/etc/rc.d/init.d/afs
+echo "AFS_SERVER=on" > $RPM_BUILD_ROOT/%{_sysconfdir}/sysconfig/afs
 
 ###
 ### clean
@@ -227,9 +221,9 @@ fi
 %post client
 echo
 echo The AFS cache is configured for 100 MB. Edit the
-echo /usr/vice/etc/cachinfo file to change this before
+echo /etc/openafs/cacheinfo file to change this before
 echo running AFS for the first time. You should also
-echo set your home cell in /usr/vice/etc/ThisCell.
+echo set your home cell in /etc/openafs/ThisCell.
 echo
 echo Also, you may want to edit /etc/pam.d/login and
 echo possibly others there to get an AFS token on login.
@@ -265,15 +259,12 @@ fi
 ###
 %files
 %defattr(644,root,root,755)
-%dir %{_prefix}/vice%{_sysconfdir}/modload
 %config /etc/sysconfig/afs
-%doc %{_prefix}/doc/openafs-%{afsvers}
 /etc/rc.d/init.d/afs
 %attr(755,root,root) %{_bindir}/bos
 %attr(755,root,root) %{_bindir}/fs
 %attr(755,root,root) %{_bindir}/klog
 %attr(755,root,root) %{_bindir}/klog.krb
-%attr(755,root,root) %{_bindir}/pagsh
 %attr(755,root,root) %{_bindir}/pts
 %attr(755,root,root) %{_bindir}/sys
 %attr(755,root,root) %{_bindir}/tokens
@@ -286,38 +277,70 @@ fi
 %attr(755,root,root) %{_sbindir}/kas
 %attr(755,root,root) %{_sbindir}/restorevol
 %attr(755,root,root) %{_sbindir}/vos
+%attr(755,root,root) %{_bindir}/afsmonitor
+%attr(755,root,root) %{_bindir}/dlog
+%attr(755,root,root) %{_bindir}/dpass
+%attr(755,root,root) %{_bindir}/knfs
+%attr(755,root,root) %{_bindir}/kpwvalid
+%attr(755,root,root) %{_bindir}/livesys
+%attr(755,root,root) %{_bindir}/pagsh.krb
+%attr(755,root,root) %{_bindir}/scout
+%attr(755,root,root) %{_bindir}/translate_et
+%attr(755,root,root) %{_bindir}/up
+%attr(755,root,root) %{_bindir}/xstat_cm_test
+%attr(755,root,root) %{_bindir}/xstat_fs_test
+%attr(755,root,root) %{_libdir}/libafsauthent.so.1.0
+%attr(755,root,root) %{_libdir}/libafsrpc.so.1.0
+%{_libdir}/libuafs.a
+%attr(755,root,root) %{_sbindir}/bos_util
+%attr(755,root,root) %{_sbindir}/copyauth
+%attr(755,root,root) %{_sbindir}/fms
+%attr(755,root,root) %{_sbindir}/kadb_check
+%attr(755,root,root) %{_sbindir}/kdb
+%attr(755,root,root) %{_sbindir}/kdump-2.4.20
+%attr(755,root,root) %{_sbindir}/kseal
+%attr(755,root,root) %{_sbindir}/pt_util
+%attr(755,root,root) %{_sbindir}/read_tape
+%attr(755,root,root) %{_sbindir}/rmtsysd
+%attr(755,root,root) %{_sbindir}/rxdebug
+%attr(755,root,root) %{_sbindir}/uss
+%attr(755,root,root) %{_sbindir}/vsys
+
+%files kerberos-client
+%{_bindir}/kpasswd
+%attr(755,root,root) %{_bindir}/pagsh
+
+%files kerberos-server
+%attr(755,root,root) %{_libdir}/%{name}/kaserver
+%attr(755,root,root) %{_bindir}/compile_et
 
 %files client
 %defattr(644,root,root,755)
 %dir /afs
-%dir %{_prefix}/vice/cache
-%config %{_prefix}/vice%{_sysconfdir}/CellServDB
-%config %{_prefix}/vice%{_sysconfdir}/SuidCells
-%config %{_prefix}/vice%{_sysconfdir}/ThisCell
-%config %{_prefix}/vice%{_sysconfdir}/cacheinfo
+%dir /var/openafs/cache
+%config %{_sysconfdir}/%{name}/CellServDB
+%config %{_sysconfdir}/%{name}/SuidCells
+%config %{_sysconfdir}/%{name}/ThisCell
+%config %{_sysconfdir}/%{name}/cacheinfo
 %attr(755,root,root) %{_bindir}/cmdebug
-%{_prefix}/vice%{_sysconfdir}/afsd
-/lib/security/pam_afs.krb.so.1
-/lib/security/pam_afs.so.1
+%{_sbindir}/afsd
+/lib/security/*
 
 %files server
 %defattr(644,root,root,755)
-%dir %{_prefix}/afs
-%dir %{_prefix}/afs/bin
-%dir %{_prefix}/afs/logs
-%{_prefix}/afs/bin/bosserver
-%{_prefix}/afs/bin/buserver
-%{_prefix}/afs/bin/fileserver
-# Should we support KAServer?
-%{_prefix}/afs/bin/kaserver
-%{_prefix}/afs/bin/kpwvalid
-%{_prefix}/afs/bin/ptserver
-%{_prefix}/afs/bin/salvager
-%{_prefix}/afs/bin/upclient
-%{_prefix}/afs/bin/upserver
-%{_prefix}/afs/bin/vlserver
-%{_prefix}/afs/bin/volinfo
-%{_prefix}/afs/bin/volserver
+%dir %{_sbindir}
+%dir /var/log/openafs
+%attr(755,root,root) %{_sbindir}/bosserver
+%attr(755,root,root) %{_libdir}/%{name}/buserver
+%attr(755,root,root) %{_libdir}/%{name}/fileserver
+%attr(755,root,root) %{_sbindir}/kpwvalid
+%attr(755,root,root) %{_libdir}/%{name}/ptserver
+%attr(755,root,root) %{_libdir}/%{name}/salvager
+%attr(755,root,root) %{_libdir}/%{name}/upclient
+%attr(755,root,root) %{_libdir}/%{name}/upserver
+%attr(755,root,root) %{_libdir}/%{name}/vlserver
+%attr(755,root,root) %{_sbindir}/volinfo
+%attr(755,root,root) %{_libdir}/%{name}/volserver
 %attr(755,root,root) %{_sbindir}/prdb_check
 %attr(755,root,root) %{_sbindir}/vldb_check
 %attr(755,root,root) %{_sbindir}/vldb_convert
@@ -337,7 +360,6 @@ fi
 %{_includedir}/des_conf.h
 %{_includedir}/des_odd.h
 %{_includedir}/mit-cpyright.h
-%{_includedir}/itc.h
 %{_includedir}/potpourri.h
 %{_libdir}/afs
 %{_libdir}/librxkad.a
@@ -351,12 +373,12 @@ fi
 
 %files kernel
 %defattr(644,root,root,755)
-%{_prefix}/vice%{_sysconfdir}/modload/libafs*.o
+/lib/modules/misc/libafs*.o*
 
-%files kernel-source
-%defattr(644,root,root,755)
-%{_prefix}/src/openafs-kernel-%{afsvers}/LICENSE.IBM
-%{_prefix}/src/openafs-kernel-%{afsvers}/LICENSE.Sun
-%{_prefix}/src/openafs-kernel-%{afsvers}/README
-%{_prefix}/src/openafs-kernel-%{afsvers}/Makefile
-%{_prefix}/src/openafs-kernel-%{afsvers}/src
+#%files kernel-source
+#%defattr(644,root,root,755)
+#%{_prefix}/src/openafs-kernel-%{afsvers}/LICENSE.IBM
+#%{_prefix}/src/openafs-kernel-%{afsvers}/LICENSE.Sun
+#%{_prefix}/src/openafs-kernel-%{afsvers}/README
+#%{_prefix}/src/openafs-kernel-%{afsvers}/Makefile
+#%{_prefix}/src/openafs-kernel-%{afsvers}/src
