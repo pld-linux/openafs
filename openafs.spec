@@ -76,7 +76,7 @@ administrative management.
 
 This package provides kerberos4 utilities like kpasswd.
 
-%description kerneros-client -l pl
+%description kerberos-client -l pl
 AFS jest rozproszonym systemem plików pozwalaj±cym na dzielenie plików
 miêdzy wieloma komputerami, tak¿e na ró¿nych platformach. AFS pozwala
 na kontrolê dostêpu, uwierzytelnianie, backup i administrowanie.
