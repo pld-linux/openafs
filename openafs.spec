@@ -64,7 +64,7 @@ Ten pakiet zawiera klienta do montowania i manipulowania AFS.
 
 %package -n pam-pam_afs
 Summary:	OpenAFS Filesystem PAM module
-Summary(pl):	Klient systemu plików OpenAFS
+Summary(pl):	Modu³ PAM dla klienta systemu plików OpenAFS
 Group:		Applications/System
 Requires:	%{name} = %{version}
 Requires:	%{name}-kernel
