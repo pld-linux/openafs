@@ -37,7 +37,7 @@ OpenAFS packages but are not necessarily tied to a client or server.
 %description -l pl
 AFS jest rozproszonym systemem plików pozwalaj±cym na dzielenie plików
 miêdzy wieloma komputerami, tak¿e na ró¿nych platformach. AFS pozwala
-na kontrolê dostêpu, uwierzytalnianie, backup i administrowanie.
+na kontrolê dostêpu, uwierzytelnianie, backup i administrowanie.
 
 Ten pakiet zawiera pliki wspólne dla klienta i serwera AFS.
 
