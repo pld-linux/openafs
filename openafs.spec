@@ -1,15 +1,15 @@
-%define	kernver	2.2.0
+#%define	kernver	2.2.0
 Summary:	OpenAFS distributed filesystem
 Summary(pl):	Rozproszony system plików OpenAFS
 Name:		openafs
-Version:	1.0.1
+Version:	1.2.2a
 Release:	1
 License:	IPL
 Group:		Networking/Daemons
 Group(de):	Netzwerkwesen/Server
 Group(pl):	Sieciowe/Serwery
-Source0:	http://www.openafs.org/dl/openafs/${afsvers}/%{name}-%{version}-src.tar.gz
-Source1:	%{name}-redhat.tar.gz
+Source0:	http://www.openafs.org/dl/openafs/%{version}/%{name}-%{version}-src.tar.bz2
+#Source1:	%{name}-redhat.tar.gz
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Requires:	openafs-kernel
 Prereq:		/sbin/chkconfig
@@ -156,18 +156,12 @@ na kontrolê dostêpu, autentykacjê, backup i administrowanie.
 Ten pakiet zawiera ¼ród³a do samodzielnego skompilowania modu³u AFS.
 
 %prep
-%setup -q -a 1
-install -d %{_target_platform}/{dest,obj} links
-ln -sf src/Makefile Makefile
-ln -sf %{_target_platform}/dest dest
-ln -sf %{_target_platform}/obj obj
-ln -sf %{_target_platform} @sys
-%{__make} links
+%setup -q 
 
 %build
-%{__make} \
-	SYS_NAME="%{_target_platform}" \
-	LINUX_VERS="%{?kernel:%{kernel}}%{!?kernel:%{kernver}}"
+autoconf
+%configure
+%{__make}
 
 %install
 rm -rf $RPM_BUILD_ROOT
