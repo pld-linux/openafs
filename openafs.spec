@@ -252,7 +252,7 @@ if [ "$1" = "0" ]; then
 	if [ -f /var/lock/subsys/afs ]; then
 		/etc/rc.d/init.d/afs stop
 	fi
-	/sbin/chkconfig --add afs
+	/sbin/chkconfig --del afs
 fi
 
 ###
