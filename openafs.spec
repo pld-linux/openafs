@@ -7,23 +7,28 @@
 Summary:	OpenAFS distributed filesystem
 Summary(pl):	Rozproszony system plików OpenAFS
 Name:		openafs
-Version:	1.2.10
-Release:	2
+Version:	1.2.13
+Release:	1
 Epoch:		1
 License:	IBM Public License
 Group:		Networking/Daemons
 Source0:	http://www.openafs.org/dl/openafs/%{version}/%{name}-%{version}-src.tar.bz2
-# Source0-md5:	7c94e5d024d16c581a363de52ed21f95
+# Source0-md5:	6a1e6b5ad2da4532d6e1086024150ecd
 Patch0:		%{name}-Makefile.in.fix
 Patch3:		%{name}-venus.patch
 URL:		http://www.openafs.org/
 BuildRequires:	autoconf
+BuildRequires:	bison
+BuildRequires:	flex
+BuildRequires:	kernel24-headers
 BuildRequires:	pam-devel
 PreReq:		rc-scripts
 Requires(post,preun):	/sbin/chkconfig
 Requires(post):	/sbin/ldconfig
 Requires:	%{name}-kernel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
+
+%define		_kernelsrcdir	/usr/src/linux-2.4
 
 %description
 The AFS distributed filesystem. AFS is a distributed filesystem
