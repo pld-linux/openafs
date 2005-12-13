@@ -22,10 +22,10 @@ BuildRequires:	bison
 BuildRequires:	flex
 BuildRequires:	kernel24-headers
 BuildRequires:	pam-devel
-PreReq:		rc-scripts
-Requires(post,preun):	/sbin/chkconfig
 Requires(post):	/sbin/ldconfig
+Requires(post,preun):	/sbin/chkconfig
 Requires:	%{name}-kernel
+Requires:	rc-scripts
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_kernelsrcdir	/usr/src/linux-2.4
@@ -50,8 +50,8 @@ Ten pakiet zawiera pliki wspólne dla klienta i serwera AFS.
 Summary:	OpenAFS Filesystem Client
 Summary(pl):	Klient systemu plików OpenAFS
 Group:		Networking/Daemons
-Requires:	%{name} = %{epoch}:%{version}-%{release}
 Requires:	%{name}-kernel = %{epoch}:%{version}-%{release}
+Requires:	%{name} = %{epoch}:%{version}-%{release}
 
 %description client
 The AFS distributed filesystem. AFS is a distributed filesystem
@@ -73,9 +73,9 @@ Ten pakiet zawiera klienta do montowania i manipulowania AFS.
 Summary:	OpenAFS Filesystem PAM module
 Summary(pl):	Modu³ PAM dla klienta systemu plików OpenAFS
 Group:		Applications/System
-Requires:	%{name} = %{epoch}:%{version}-%{release}
-Requires:	%{name}-kernel = %{epoch}:%{version}-%{release}
 Requires:	%{name}-client = %{epoch}:%{version}-%{release}
+Requires:	%{name}-kernel = %{epoch}:%{version}-%{release}
+Requires:	%{name} = %{epoch}:%{version}-%{release}
 Obsoletes:	pam_afs
 
 %description -n pam-pam_afs
@@ -140,8 +140,8 @@ Summary:	OpenAFS Filesystem Server
 Summary(pl):	Serwer systemu plików OpenAFS
 Group:		Networking/Daemons
 Requires(post):	grep
-Requires:	%{name} = %{epoch}:%{version}-%{release}
 Requires:	%{name}-kernel = %{epoch}:%{version}-%{release}
+Requires:	%{name} = %{epoch}:%{version}-%{release}
 
 %description server
 The AFS distributed filesystem. AFS is a distributed filesystem
@@ -246,7 +246,7 @@ rm -rf $RPM_BUILD_ROOT
 
 install -d $RPM_BUILD_ROOT/lib/modules/misc
 install -d $RPM_BUILD_ROOT/%{_lib}/security
-install -d $RPM_BUILD_ROOT/etc/openafs
+install -d $RPM_BUILD_ROOT%{_sysconfdir}/openafs
 install -d $RPM_BUILD_ROOT/etc/rc.d/init.d
 install -d $RPM_BUILD_ROOT/etc/sysconfig
 install -d $RPM_BUILD_ROOT/var/openafs/cache
@@ -320,7 +320,7 @@ echo
 ###
 %files
 %defattr(644,root,root,755)
-%config(noreplace) %verify(not size mtime md5) /etc/sysconfig/afs
+%config(noreplace) %verify(not md5 mtime size) /etc/sysconfig/afs
 %attr(754,root,root) /etc/rc.d/init.d/afs
 %attr(755,root,root) %{_bindir}/bos
 %attr(755,root,root) %{_bindir}/fs
