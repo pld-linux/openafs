@@ -5,7 +5,7 @@
 #
 #%%define	kernver	2.2.0
 Summary:	OpenAFS distributed filesystem
-Summary(pl):	Rozproszony system plików OpenAFS
+Summary(pl.UTF-8):   Rozproszony system plikÃ³w OpenAFS
 Name:		openafs
 Version:	1.2.13
 Release:	1
@@ -39,16 +39,16 @@ administrative management.
 This package provides common files shared across all the various
 OpenAFS packages but are not necessarily tied to a client or server.
 
-%description -l pl
-AFS jest rozproszonym systemem plików pozwalaj±cym na dzielenie plików
-miêdzy wieloma komputerami, tak¿e na ró¿nych platformach. AFS pozwala
-na kontrolê dostêpu, uwierzytelnianie, backup i administrowanie.
+%description -l pl.UTF-8
+AFS jest rozproszonym systemem plikÃ³w pozwalajÄ…cym na dzielenie plikÃ³w
+miÄ™dzy wieloma komputerami, takÅ¼e na rÃ³Å¼nych platformach. AFS pozwala
+na kontrolÄ™ dostÄ™pu, uwierzytelnianie, backup i administrowanie.
 
-Ten pakiet zawiera pliki wspólne dla klienta i serwera AFS.
+Ten pakiet zawiera pliki wspÃ³lne dla klienta i serwera AFS.
 
 %package client
 Summary:	OpenAFS Filesystem Client
-Summary(pl):	Klient systemu plików OpenAFS
+Summary(pl.UTF-8):   Klient systemu plikÃ³w OpenAFS
 Group:		Networking/Daemons
 Requires:	%{name}-kernel = %{epoch}:%{version}-%{release}
 Requires:	%{name} = %{epoch}:%{version}-%{release}
@@ -62,16 +62,16 @@ administrative management.
 This package provides basic client support to mount and manipulate
 AFS.
 
-%description client -l pl
-AFS jest rozproszonym systemem plików pozwalaj±cym na dzielenie plików
-miêdzy wieloma komputerami, tak¿e na ró¿nych platformach. AFS pozwala
-na kontrolê dostêpu, uwierzytelnianie, backup i administrowanie.
+%description client -l pl.UTF-8
+AFS jest rozproszonym systemem plikÃ³w pozwalajÄ…cym na dzielenie plikÃ³w
+miÄ™dzy wieloma komputerami, takÅ¼e na rÃ³Å¼nych platformach. AFS pozwala
+na kontrolÄ™ dostÄ™pu, uwierzytelnianie, backup i administrowanie.
 
 Ten pakiet zawiera klienta do montowania i manipulowania AFS.
 
 %package -n pam-pam_afs
 Summary:	OpenAFS Filesystem PAM module
-Summary(pl):	Modu³ PAM dla klienta systemu plików OpenAFS
+Summary(pl.UTF-8):   ModuÅ‚ PAM dla klienta systemu plikÃ³w OpenAFS
 Group:		Applications/System
 Requires:	%{name}-client = %{epoch}:%{version}-%{release}
 Requires:	%{name}-kernel = %{epoch}:%{version}-%{release}
@@ -86,16 +86,16 @@ administrative management.
 
 This package provides PAM client module.
 
-%description -n pam-pam_afs -l pl
-AFS jest rozproszonym systemem plików pozwalaj±cym na dzielenie plików
-miêdzy wieloma komputerami, tak¿e na ró¿nych platformach. AFS pozwala
-na kontrolê dostêpu, uwierzytelnianie, backup i administrowanie.
+%description -n pam-pam_afs -l pl.UTF-8
+AFS jest rozproszonym systemem plikÃ³w pozwalajÄ…cym na dzielenie plikÃ³w
+miÄ™dzy wieloma komputerami, takÅ¼e na rÃ³Å¼nych platformach. AFS pozwala
+na kontrolÄ™ dostÄ™pu, uwierzytelnianie, backup i administrowanie.
 
-Ten pakiet zawiera modu³ PAM dla klienta.
+Ten pakiet zawiera moduÅ‚ PAM dla klienta.
 
 %package kerberos-client
 Summary:	OpenAFS Filesystem Kerberos4 Clients
-Summary(pl):	Klient Kerberos4 systemu plików OpenAFS
+Summary(pl.UTF-8):   Klient Kerberos4 systemu plikÃ³w OpenAFS
 Group:		Networking/Daemons
 Requires:	%{name} = %{epoch}:%{version}-%{release}
 
@@ -107,16 +107,16 @@ administrative management.
 
 This package provides kerberos4 utilities like kpasswd.
 
-%description kerberos-client -l pl
-AFS jest rozproszonym systemem plików pozwalaj±cym na dzielenie plików
-miêdzy wieloma komputerami, tak¿e na ró¿nych platformach. AFS pozwala
-na kontrolê dostêpu, uwierzytelnianie, backup i administrowanie.
+%description kerberos-client -l pl.UTF-8
+AFS jest rozproszonym systemem plikÃ³w pozwalajÄ…cym na dzielenie plikÃ³w
+miÄ™dzy wieloma komputerami, takÅ¼e na rÃ³Å¼nych platformach. AFS pozwala
+na kontrolÄ™ dostÄ™pu, uwierzytelnianie, backup i administrowanie.
 
-Ten pakiet zawiera narzêdzia kerberos4 typu kpasswd.
+Ten pakiet zawiera narzÄ™dzia kerberos4 typu kpasswd.
 
 %package kerberos-server
 Summary:	OpenAFS Filesystem Kerberos4 Server
-Summary(pl):	Serwer Kerberos4 systemu plików OpenAFS
+Summary(pl.UTF-8):   Serwer Kerberos4 systemu plikÃ³w OpenAFS
 Group:		Networking/Daemons
 Requires:	%{name} = %{epoch}:%{version}-%{release}
 
@@ -128,16 +128,16 @@ administrative management.
 
 This package provides kerberos4 servers.
 
-%description kerberos-server -l pl
-AFS jest rozproszonym systemem plików pozwalaj±cym na dzielenie plików
-miêdzy wieloma komputerami, tak¿e na ró¿nych platformach. AFS pozwala
-na kontrolê dostêpu, uwierzytelnianie, backup i administrowanie.
+%description kerberos-server -l pl.UTF-8
+AFS jest rozproszonym systemem plikÃ³w pozwalajÄ…cym na dzielenie plikÃ³w
+miÄ™dzy wieloma komputerami, takÅ¼e na rÃ³Å¼nych platformach. AFS pozwala
+na kontrolÄ™ dostÄ™pu, uwierzytelnianie, backup i administrowanie.
 
 Ten pakiet zawiera serwery kerberos4.
 
 %package server
 Summary:	OpenAFS Filesystem Server
-Summary(pl):	Serwer systemu plików OpenAFS
+Summary(pl.UTF-8):   Serwer systemu plikÃ³w OpenAFS
 Group:		Networking/Daemons
 Requires(post):	grep
 Requires:	%{name}-kernel = %{epoch}:%{version}-%{release}
@@ -152,16 +152,16 @@ administrative management.
 This package provides basic server support to host files in an AFS
 Cell.
 
-%description server -l pl
-AFS jest rozproszonym systemem plików pozwalaj±cym na dzielenie plików
-miêdzy wieloma komputerami, tak¿e na ró¿nych platformach. AFS pozwala
-na kontrolê dostêpu, uwierzytelnianie, backup i administrowanie.
+%description server -l pl.UTF-8
+AFS jest rozproszonym systemem plikÃ³w pozwalajÄ…cym na dzielenie plikÃ³w
+miÄ™dzy wieloma komputerami, takÅ¼e na rÃ³Å¼nych platformach. AFS pozwala
+na kontrolÄ™ dostÄ™pu, uwierzytelnianie, backup i administrowanie.
 
-Ten pakiet zawiera serwer do przechowywania plików w AFS.
+Ten pakiet zawiera serwer do przechowywania plikÃ³w w AFS.
 
 %package devel
 Summary:	OpenAFS Development Libraries and Headers
-Summary(pl):	Pliki nag³ówkowe i biblioteki OpenAFS
+Summary(pl.UTF-8):   Pliki nagÅ‚Ã³wkowe i biblioteki OpenAFS
 Group:		Development/Libraries
 
 %description devel
@@ -174,18 +174,18 @@ This package provides static development libraries and headers needed
 to compile AFS applications. Note: AFS currently does not provide
 shared libraries.
 
-%description devel -l pl
-AFS jest rozproszonym systemem plików pozwalaj±cym na dzielenie plików
-miêdzy wieloma komputerami, tak¿e na ró¿nych platformach. AFS pozwala
-na kontrolê dostêpu, uwierzytelnianie, backup i administrowanie.
+%description devel -l pl.UTF-8
+AFS jest rozproszonym systemem plikÃ³w pozwalajÄ…cym na dzielenie plikÃ³w
+miÄ™dzy wieloma komputerami, takÅ¼e na rÃ³Å¼nych platformach. AFS pozwala
+na kontrolÄ™ dostÄ™pu, uwierzytelnianie, backup i administrowanie.
 
-Ten pakiet zawiera biblioteki statyczne i nag³ówki potrzebne do
+Ten pakiet zawiera biblioteki statyczne i nagÅ‚Ã³wki potrzebne do
 kompilowania aplikacji z AFS. Aktualnie AFS nie dostarcza bibliotek
-wspó³dzielonych.
+wspÃ³Å‚dzielonych.
 
 %package kernel
 Summary:	OpenAFS Kernel Module(s)
-Summary(pl):	Modu³(y) j±dra OpenAFS
+Summary(pl.UTF-8):   ModuÅ‚(y) jÄ…dra OpenAFS
 Group:		Networking/Daemons
 
 %description kernel
@@ -197,16 +197,16 @@ administrative management.
 This package provides precompiled AFS kernel modules for various
 kernels.
 
-%description kernel -l pl
-AFS jest rozproszonym systemem plików pozwalaj±cym na dzielenie plików
-miêdzy wieloma komputerami, tak¿e na ró¿nych platformach. AFS pozwala
-na kontrolê dostêpu, uwierzytelnianie, backup i administrowanie.
+%description kernel -l pl.UTF-8
+AFS jest rozproszonym systemem plikÃ³w pozwalajÄ…cym na dzielenie plikÃ³w
+miÄ™dzy wieloma komputerami, takÅ¼e na rÃ³Å¼nych platformach. AFS pozwala
+na kontrolÄ™ dostÄ™pu, uwierzytelnianie, backup i administrowanie.
 
-Ten pakiet zawiera prekompilowane modu³y j±dra do AFS.
+Ten pakiet zawiera prekompilowane moduÅ‚y jÄ…dra do AFS.
 
 #%package kernel-source
 #Summary:	OpenAFS Kernel Module source tree
-#Summary(pl):	¬ród³a modu³u j±dra AFS
+#Summary(pl):	Å¹rÃ³dÅ‚a moduÅ‚u jÄ…dra AFS
 #Group:		Networking/Daemons
 
 #%description kernel-source
@@ -219,11 +219,11 @@ Ten pakiet zawiera prekompilowane modu³y j±dra do AFS.
 #module.
 
 #%description kernel-source -l pl
-#AFS jest rozproszonym systemem plików pozwalaj±cym na dzielenie plików
-#miêdzy wieloma komputerami, tak¿e na ró¿nych platformach. AFS pozwala
-#na kontrolê dostêpu, autentykacjê, backup i administrowanie.
+#AFS jest rozproszonym systemem plikÃ³w pozwalajÄ…cym na dzielenie plikÃ³w
+#miÄ™dzy wieloma komputerami, takÅ¼e na rÃ³Å¼nych platformach. AFS pozwala
+#na kontrolÄ™ dostÄ™pu, autentykacjÄ™, backup i administrowanie.
 
-#Ten pakiet zawiera ¼ród³a do samodzielnego skompilowania modu³u AFS.
+#Ten pakiet zawiera ÅºrÃ³dÅ‚a do samodzielnego skompilowania moduÅ‚u AFS.
 
 %prep
 %setup -q
