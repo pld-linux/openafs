@@ -5,7 +5,7 @@
 #
 #%%define	kernver	2.2.0
 Summary:	OpenAFS distributed filesystem
-Summary(pl.UTF-8):   Rozproszony system plików OpenAFS
+Summary(pl.UTF-8):	Rozproszony system plików OpenAFS
 Name:		openafs
 Version:	1.2.13
 Release:	1
@@ -48,7 +48,7 @@ Ten pakiet zawiera pliki wspólne dla klienta i serwera AFS.
 
 %package client
 Summary:	OpenAFS Filesystem Client
-Summary(pl.UTF-8):   Klient systemu plików OpenAFS
+Summary(pl.UTF-8):	Klient systemu plików OpenAFS
 Group:		Networking/Daemons
 Requires:	%{name}-kernel = %{epoch}:%{version}-%{release}
 Requires:	%{name} = %{epoch}:%{version}-%{release}
@@ -71,7 +71,7 @@ Ten pakiet zawiera klienta do montowania i manipulowania AFS.
 
 %package -n pam-pam_afs
 Summary:	OpenAFS Filesystem PAM module
-Summary(pl.UTF-8):   Moduł PAM dla klienta systemu plików OpenAFS
+Summary(pl.UTF-8):	Moduł PAM dla klienta systemu plików OpenAFS
 Group:		Applications/System
 Requires:	%{name}-client = %{epoch}:%{version}-%{release}
 Requires:	%{name}-kernel = %{epoch}:%{version}-%{release}
@@ -95,7 +95,7 @@ Ten pakiet zawiera moduł PAM dla klienta.
 
 %package kerberos-client
 Summary:	OpenAFS Filesystem Kerberos4 Clients
-Summary(pl.UTF-8):   Klient Kerberos4 systemu plików OpenAFS
+Summary(pl.UTF-8):	Klient Kerberos4 systemu plików OpenAFS
 Group:		Networking/Daemons
 Requires:	%{name} = %{epoch}:%{version}-%{release}
 
@@ -116,7 +116,7 @@ Ten pakiet zawiera narzędzia kerberos4 typu kpasswd.
 
 %package kerberos-server
 Summary:	OpenAFS Filesystem Kerberos4 Server
-Summary(pl.UTF-8):   Serwer Kerberos4 systemu plików OpenAFS
+Summary(pl.UTF-8):	Serwer Kerberos4 systemu plików OpenAFS
 Group:		Networking/Daemons
 Requires:	%{name} = %{epoch}:%{version}-%{release}
 
@@ -137,7 +137,7 @@ Ten pakiet zawiera serwery kerberos4.
 
 %package server
 Summary:	OpenAFS Filesystem Server
-Summary(pl.UTF-8):   Serwer systemu plików OpenAFS
+Summary(pl.UTF-8):	Serwer systemu plików OpenAFS
 Group:		Networking/Daemons
 Requires(post):	grep
 Requires:	%{name}-kernel = %{epoch}:%{version}-%{release}
@@ -161,7 +161,7 @@ Ten pakiet zawiera serwer do przechowywania plików w AFS.
 
 %package devel
 Summary:	OpenAFS Development Libraries and Headers
-Summary(pl.UTF-8):   Pliki nagłówkowe i biblioteki OpenAFS
+Summary(pl.UTF-8):	Pliki nagłówkowe i biblioteki OpenAFS
 Group:		Development/Libraries
 
 %description devel
@@ -185,7 +185,7 @@ współdzielonych.
 
 %package kernel
 Summary:	OpenAFS Kernel Module(s)
-Summary(pl.UTF-8):   Moduł(y) jądra OpenAFS
+Summary(pl.UTF-8):	Moduł(y) jądra OpenAFS
 Group:		Networking/Daemons
 
 %description kernel
