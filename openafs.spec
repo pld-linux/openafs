@@ -3,32 +3,26 @@
 #	/afs (-> /mnt/afs?)
 #	/var/openafs/cache (-> /var/cache/openafs?)
 #
-#%%define	kernver	2.2.0
 Summary:	OpenAFS distributed filesystem
 Summary(pl.UTF-8):	Rozproszony system plików OpenAFS
 Name:		openafs
-Version:	1.2.13
-Release:	1
+Version:	1.4.4
+Release:	0.1
 Epoch:		1
 License:	IBM Public License
 Group:		Networking/Daemons
 Source0:	http://www.openafs.org/dl/openafs/%{version}/%{name}-%{version}-src.tar.bz2
-# Source0-md5:	6a1e6b5ad2da4532d6e1086024150ecd
-Patch0:		%{name}-Makefile.in.fix
-Patch3:		%{name}-venus.patch
+# Source0-md5:	59cd499c6bf337b1f2215f83a7404794
 URL:		http://www.openafs.org/
 BuildRequires:	autoconf
 BuildRequires:	bison
 BuildRequires:	flex
-BuildRequires:	kernel24-headers
+BuildRequires:	krb5-devel
 BuildRequires:	pam-devel
 Requires(post):	/sbin/ldconfig
 Requires(post,preun):	/sbin/chkconfig
-Requires:	%{name}-kernel
 Requires:	rc-scripts
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
-
-%define		_kernelsrcdir	/usr/src/linux-2.4
 
 %description
 The AFS distributed filesystem. AFS is a distributed filesystem
@@ -183,60 +177,29 @@ Ten pakiet zawiera biblioteki statyczne i nagłówki potrzebne do
 kompilowania aplikacji z AFS. Aktualnie AFS nie dostarcza bibliotek
 współdzielonych.
 
-%package kernel
-Summary:	OpenAFS Kernel Module(s)
-Summary(pl.UTF-8):	Moduł(y) jądra OpenAFS
-Group:		Networking/Daemons
-
-%description kernel
-The AFS distributed filesystem. AFS is a distributed filesystem
-allowing cross-platform sharing of files among multiple computers.
-Facilities are provided for access control, authentication, backup and
-administrative management.
-
-This package provides precompiled AFS kernel modules for various
-kernels.
-
-%description kernel -l pl.UTF-8
-AFS jest rozproszonym systemem plików pozwalającym na dzielenie plików
-między wieloma komputerami, także na różnych platformach. AFS pozwala
-na kontrolę dostępu, uwierzytelnianie, backup i administrowanie.
-
-Ten pakiet zawiera prekompilowane moduły jądra do AFS.
-
-#%package kernel-source
-#Summary:	OpenAFS Kernel Module source tree
-#Summary(pl):	Źródła modułu jądra AFS
-#Group:		Networking/Daemons
-
-#%description kernel-source
-#The AFS distributed filesystem. AFS is a distributed filesystem
-#allowing cross-platform sharing of files among multiple computers.
-#Facilities are provided for access control, authentication, backup and
-#administrative management.
-
-#This package provides the source code to build your own AFS kernel
-#module.
-
-#%description kernel-source -l pl
-#AFS jest rozproszonym systemem plików pozwalającym na dzielenie plików
-#między wieloma komputerami, także na różnych platformach. AFS pozwala
-#na kontrolę dostępu, autentykację, backup i administrowanie.
-
-#Ten pakiet zawiera źródła do samodzielnego skompilowania modułu AFS.
-
 %prep
 %setup -q
-%patch0 -p0
-#%patch1 -p1
-#%patch2 -p1
 
 %build
 %{__autoconf}
 %configure \
-	--with-linux-kernel-headers=%{_kernelsrcdir}
+	--with-krb5-conf=%{_bindir}/krb5-config \
+%ifarch %{ix86}
+	--with-afs-sysname=i386_linux26 \
+%endif
+%ifarch %{x8664}
+	--with-afs-sysname=amd64_linux26 \
+%endif
+%ifarch ppc
+	--with-afs-sysname=ppc_linux26 \
+%endif
+	--disable-kernel-module
 
-%{__make}
+%{__make} -j1 \
+	CC="%{__cc}" \
+	CCOBJ="%{__cc}" \
+	MT_CC="%{__cc}" \
+	OPTMZ="%{rpmcflags} -I/usr/include/ncurses -fPIC"
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -244,7 +207,6 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
-install -d $RPM_BUILD_ROOT/lib/modules/misc
 install -d $RPM_BUILD_ROOT/%{_lib}/security
 install -d $RPM_BUILD_ROOT%{_sysconfdir}/openafs
 install -d $RPM_BUILD_ROOT/etc/rc.d/init.d
@@ -253,7 +215,6 @@ install -d $RPM_BUILD_ROOT/var/openafs/cache
 install -d $RPM_BUILD_ROOT/var/log/openafs
 install -d $RPM_BUILD_ROOT/afs
 
-mv $RPM_BUILD_ROOT%{_libdir}/%{name}/*.o $RPM_BUILD_ROOT/lib/modules/misc
 mv $RPM_BUILD_ROOT%{_libdir}/*pam* $RPM_BUILD_ROOT/%{_lib}/security
 
 touch $RPM_BUILD_ROOT%{_sysconfdir}/%{name}/{CellServDB,SuidCells,ThisCell,cacheinfo}
@@ -439,15 +400,3 @@ echo
 %{_libdir}/librx.a
 %{_libdir}/liblwp.a
 %{_libdir}/libdes.a
-
-%files kernel
-%defattr(644,root,root,755)
-/lib/modules/misc/libafs*.o*
-
-#%files kernel-source
-#%defattr(644,root,root,755)
-#%{_prefix}/src/openafs-kernel-%{afsvers}/LICENSE.IBM
-#%{_prefix}/src/openafs-kernel-%{afsvers}/LICENSE.Sun
-#%{_prefix}/src/openafs-kernel-%{afsvers}/README
-#%{_prefix}/src/openafs-kernel-%{afsvers}/Makefile
-#%{_prefix}/src/openafs-kernel-%{afsvers}/src
