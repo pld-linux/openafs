@@ -6,13 +6,13 @@
 Summary:	OpenAFS distributed filesystem
 Summary(pl.UTF-8):	Rozproszony system plików OpenAFS
 Name:		openafs
-Version:	1.4.4
+Version:	1.5.30
 Release:	0.1
 Epoch:		1
 License:	IBM Public License
 Group:		Networking/Daemons
 Source0:	http://www.openafs.org/dl/openafs/%{version}/%{name}-%{version}-src.tar.bz2
-# Source0-md5:	59cd499c6bf337b1f2215f83a7404794
+# Source0-md5:	c427cdc7aebd1658e288d6667bdce1b4
 URL:		http://www.openafs.org/
 BuildRequires:	autoconf
 BuildRequires:	bison
@@ -276,9 +276,6 @@ echo
 echo Be sure to edit /etc/sysconfig/afs and turn AFS_SERVER on
 echo
 
-###
-### file lists
-###
 %files
 %defattr(644,root,root,755)
 %config(noreplace) %verify(not md5 mtime size) /etc/sysconfig/afs
@@ -300,6 +297,8 @@ echo
 %attr(755,root,root) %{_sbindir}/restorevol
 %attr(755,root,root) %{_sbindir}/vos
 %attr(755,root,root) %{_bindir}/afsmonitor
+%attr(755,root,root) %{_bindir}/aklog
+%attr(755,root,root) %{_bindir}/asetkey
 %attr(755,root,root) %{_bindir}/dlog
 %attr(755,root,root) %{_bindir}/dpass
 %attr(755,root,root) %{_bindir}/knfs
@@ -317,16 +316,19 @@ echo
 %attr(755,root,root) %{_sbindir}/kadb_check
 %attr(755,root,root) %{_sbindir}/kdb
 %attr(755,root,root) %{_sbindir}/kdump
-%attr(755,root,root) %{_sbindir}/kdump-*
-%attr(755,root,root) %{_sbindir}/kseal
+%attr(755,root,root) %{_sbindir}/voldump
 %attr(755,root,root) %{_sbindir}/pt_util
 %attr(755,root,root) %{_sbindir}/read_tape
 %attr(755,root,root) %{_sbindir}/rmtsysd
 %attr(755,root,root) %{_sbindir}/rxdebug
 %attr(755,root,root) %{_sbindir}/uss
 %attr(755,root,root) %{_sbindir}/vsys
+%attr(755,root,root) %{_sbindir}/state_analyzer
+%attr(755,root,root) %{_sbindir}/ka-forwarder
+%attr(755,root,root) %{_sbindir}/fssync-debug
 %attr(755,root,root) %{_libdir}/libafsauthent.so.1.0
-%attr(755,root,root) %{_libdir}/libafsrpc.so.1.0
+%attr(755,root,root) %{_libdir}/libafsrpc.so.1.1
+%attr(755,root,root) %{_libdir}/libafssetpag.so.1.0
 %{_libdir}/libuafs.a
 %dir %{_libdir}/%{name}
 
@@ -379,6 +381,7 @@ echo
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/rxgen
 %{_includedir}/afs
+%{_includedir}/des_prototypes.h
 %{_includedir}/rx
 %{_includedir}/ubik.h
 %{_includedir}/ubik_int.h
@@ -400,3 +403,4 @@ echo
 %{_libdir}/librx.a
 %{_libdir}/liblwp.a
 %{_libdir}/libdes.a
+%{_libdir}/libjuafs.a
