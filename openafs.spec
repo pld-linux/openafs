@@ -17,7 +17,7 @@ URL:		http://www.openafs.org/
 BuildRequires:	autoconf
 BuildRequires:	bison
 BuildRequires:	flex
-BuildRequires:	krb5-devel
+BuildRequires:	heimdal-devel
 BuildRequires:	pam-devel
 Requires(post):	/sbin/ldconfig
 Requires(post,preun):	/sbin/chkconfig
