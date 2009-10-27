@@ -6,13 +6,14 @@
 Summary:	OpenAFS distributed filesystem
 Summary(pl.UTF-8):	Rozproszony system plików OpenAFS
 Name:		openafs
-Version:	1.5.30
+Version:	1.5.66
 Release:	0.1
 Epoch:		1
 License:	IBM Public License
 Group:		Networking/Daemons
 Source0:	http://www.openafs.org/dl/openafs/%{version}/%{name}-%{version}-src.tar.bz2
-# Source0-md5:	c427cdc7aebd1658e288d6667bdce1b4
+# Source0-md5:	b13956a0fcd309607c7f83bc6cbe23c8
+Patch0:		%{name}-aclocal.patch
 URL:		http://www.openafs.org/
 BuildRequires:	autoconf
 BuildRequires:	bison
@@ -179,6 +180,7 @@ współdzielonych.
 
 %prep
 %setup -q
+%patch0 -p1
 
 %build
 %{__autoconf}
@@ -285,6 +287,7 @@ echo
 %attr(755,root,root) %{_bindir}/klog
 %attr(755,root,root) %{_bindir}/klog.krb
 %attr(755,root,root) %{_bindir}/pts
+%attr(744,root,root) %{_bindir}/restorevol
 %attr(755,root,root) %{_bindir}/sys
 %attr(755,root,root) %{_bindir}/tokens
 %attr(755,root,root) %{_bindir}/tokens.krb
@@ -294,13 +297,12 @@ echo
 %attr(755,root,root) %{_sbindir}/butc
 %attr(755,root,root) %{_sbindir}/fstrace
 %attr(755,root,root) %{_sbindir}/kas
-%attr(755,root,root) %{_sbindir}/restorevol
 %attr(755,root,root) %{_sbindir}/vos
 %attr(755,root,root) %{_bindir}/afsmonitor
 %attr(755,root,root) %{_bindir}/aklog
 %attr(755,root,root) %{_bindir}/asetkey
-%attr(755,root,root) %{_bindir}/dlog
-%attr(755,root,root) %{_bindir}/dpass
+#%%attr(755,root,root) %{_bindir}/dlog
+#%%attr(755,root,root) %{_bindir}/dpass
 %attr(755,root,root) %{_bindir}/knfs
 %attr(755,root,root) %{_bindir}/kpwvalid
 %attr(755,root,root) %{_bindir}/livesys
@@ -311,11 +313,11 @@ echo
 %attr(755,root,root) %{_bindir}/xstat_cm_test
 %attr(755,root,root) %{_bindir}/xstat_fs_test
 %attr(755,root,root) %{_sbindir}/bos_util
-%attr(755,root,root) %{_sbindir}/copyauth
+#%%attr(755,root,root) %{_sbindir}/copyauth
 %attr(755,root,root) %{_sbindir}/fms
 %attr(755,root,root) %{_sbindir}/kadb_check
 %attr(755,root,root) %{_sbindir}/kdb
-%attr(755,root,root) %{_sbindir}/kdump
+#%%attr(755,root,root) %{_sbindir}/kdump
 %attr(755,root,root) %{_sbindir}/voldump
 %attr(755,root,root) %{_sbindir}/pt_util
 %attr(755,root,root) %{_sbindir}/read_tape
@@ -326,9 +328,10 @@ echo
 %attr(755,root,root) %{_sbindir}/state_analyzer
 %attr(755,root,root) %{_sbindir}/ka-forwarder
 %attr(755,root,root) %{_sbindir}/fssync-debug
-%attr(755,root,root) %{_libdir}/libafsauthent.so.1.0
+%attr(755,root,root) %{_libdir}/libafsauthent.so.1.1
 %attr(755,root,root) %{_libdir}/libafsrpc.so.1.1
-%attr(755,root,root) %{_libdir}/libafssetpag.so.1.0
+#%%attr(755,root,root) %{_libdir}/libafssetpag.so.1.0
+%attr(755,root,root) %{_libdir}/libkopenafs.so.1.0
 %{_libdir}/libuafs.a
 %dir %{_libdir}/%{name}
 
@@ -340,8 +343,7 @@ echo
 %files kerberos-server
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/%{name}/kaserver
-# conflict with e2fsprogs
-#%attr(755,root,root) %{_bindir}/compile_et
+%attr(755,root,root) %{_bindir}/afs_compile_et
 
 %files client
 %defattr(644,root,root,755)
@@ -381,26 +383,27 @@ echo
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/rxgen
 %{_includedir}/afs
+%{_includedir}/des_conf.h
+%{_includedir}/des.h
+%{_includedir}/des_odd.h
 %{_includedir}/des_prototypes.h
-%{_includedir}/rx
-%{_includedir}/ubik.h
-%{_includedir}/ubik_int.h
+%{_includedir}/kopenafs.h
 %{_includedir}/lock.h
 %{_includedir}/lwp.h
-%{_includedir}/preempt.h
-%{_includedir}/timer.h
-%{_includedir}/des.h
-%{_includedir}/des_conf.h
-%{_includedir}/des_odd.h
 %{_includedir}/mit-cpyright.h
 %{_includedir}/potpourri.h
+%{_includedir}/preempt.h
+%{_includedir}/rx
+%{_includedir}/timer.h
+%{_includedir}/ubik.h
+%{_includedir}/ubik_int.h
 %{_libdir}/afs
-%{_libdir}/librxkad.a
 %{_libdir}/libafsauthent.a
 %{_libdir}/libafsrpc.a
-%{_libdir}/libubik.a
-%{_libdir}/librxstat.a
-%{_libdir}/librx.a
-%{_libdir}/liblwp.a
 %{_libdir}/libdes.a
 %{_libdir}/libjuafs.a
+%{_libdir}/liblwp.a
+%{_libdir}/librx.a
+%{_libdir}/librxkad.a
+%{_libdir}/librxstat.a
+%{_libdir}/libubik.a
