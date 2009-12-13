@@ -19,6 +19,7 @@ BuildRequires:	autoconf
 BuildRequires:	bison
 BuildRequires:	flex
 BuildRequires:	heimdal-devel
+BuildRequires:	ncurses-devel
 BuildRequires:	pam-devel
 Requires(post):	/sbin/ldconfig
 Requires(post,preun):	/sbin/chkconfig
@@ -45,8 +46,8 @@ Ten pakiet zawiera pliki wspólne dla klienta i serwera AFS.
 Summary:	OpenAFS Filesystem Client
 Summary(pl.UTF-8):	Klient systemu plików OpenAFS
 Group:		Networking/Daemons
-Requires:	%{name}-kernel = %{epoch}:%{version}-%{release}
 Requires:	%{name} = %{epoch}:%{version}-%{release}
+Requires:	%{name}-kernel = %{epoch}:%{version}-%{release}
 
 %description client
 The AFS distributed filesystem. AFS is a distributed filesystem
@@ -68,9 +69,9 @@ Ten pakiet zawiera klienta do montowania i manipulowania AFS.
 Summary:	OpenAFS Filesystem PAM module
 Summary(pl.UTF-8):	Moduł PAM dla klienta systemu plików OpenAFS
 Group:		Applications/System
+Requires:	%{name} = %{epoch}:%{version}-%{release}
 Requires:	%{name}-client = %{epoch}:%{version}-%{release}
 Requires:	%{name}-kernel = %{epoch}:%{version}-%{release}
-Requires:	%{name} = %{epoch}:%{version}-%{release}
 Obsoletes:	pam_afs
 
 %description -n pam-pam_afs
@@ -135,8 +136,8 @@ Summary:	OpenAFS Filesystem Server
 Summary(pl.UTF-8):	Serwer systemu plików OpenAFS
 Group:		Networking/Daemons
 Requires(post):	grep
-Requires:	%{name}-kernel = %{epoch}:%{version}-%{release}
 Requires:	%{name} = %{epoch}:%{version}-%{release}
+Requires:	%{name}-kernel = %{epoch}:%{version}-%{release}
 
 %description server
 The AFS distributed filesystem. AFS is a distributed filesystem
