@@ -414,7 +414,6 @@ echo
 %{_libdir}/libafsrpc_pic.a
 %{_libdir}/libkopenafs.so
 %{_libdir}/libdes.a
-%{_libdir}/libkopenafs.a
 %{_libdir}/libjuafs.a
 %{_libdir}/liblwp.a
 %{_libdir}/libkopenafs.a
@@ -428,3 +427,4 @@ echo
 %defattr(644,root,root,755)
 %{_libdir}/libafsauthent.a
 %{_libdir}/libafsrpc.a
+%{_libdir}/libkopenafs.a
