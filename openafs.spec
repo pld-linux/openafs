@@ -6,13 +6,13 @@
 Summary:	OpenAFS distributed filesystem
 Summary(pl.UTF-8):	Rozproszony system plików OpenAFS
 Name:		openafs
-Version:	1.5.68
+Version:	1.5.69
 Release:	0.1
 Epoch:		1
 License:	IBM Public License
 Group:		Networking/Daemons
 Source0:	http://www.openafs.org/dl/openafs/%{version}/%{name}-%{version}-src.tar.bz2
-# Source0-md5:	6ecc6c0d380749916a2fdd2fc5f4a456
+# Source0-md5:	d5e16c231b9eb539a2b809f8536d2fb3
 Patch0:		%{name}-aclocal.patch
 URL:		http://www.openafs.org/
 BuildRequires:	autoconf
@@ -179,6 +179,18 @@ Ten pakiet zawiera biblioteki statyczne i nagłówki potrzebne do
 kompilowania aplikacji z AFS. Aktualnie AFS nie dostarcza bibliotek
 współdzielonych.
 
+%package static
+Summary:	Static OpenAFS libraries
+Summary(pl.UTF-8):	Statyczne biblioteki OpenAFS
+Group:		Development/Libraries
+Requires:	%{name}-devel = %{version}-%{release}
+
+%description static
+Static OpenAFS libraries.
+
+%description static -l pl.UTF-8
+Statyczne biblioteki OpenAFS.
+
 %prep
 %setup -q
 %patch0 -p1
@@ -302,8 +314,6 @@ echo
 %attr(755,root,root) %{_bindir}/afsmonitor
 %attr(755,root,root) %{_bindir}/aklog
 %attr(755,root,root) %{_bindir}/asetkey
-#%%attr(755,root,root) %{_bindir}/dlog
-#%%attr(755,root,root) %{_bindir}/dpass
 %attr(755,root,root) %{_bindir}/knfs
 %attr(755,root,root) %{_bindir}/kpwvalid
 %attr(755,root,root) %{_bindir}/livesys
@@ -314,11 +324,9 @@ echo
 %attr(755,root,root) %{_bindir}/xstat_cm_test
 %attr(755,root,root) %{_bindir}/xstat_fs_test
 %attr(755,root,root) %{_sbindir}/bos_util
-#%%attr(755,root,root) %{_sbindir}/copyauth
 %attr(755,root,root) %{_sbindir}/fms
 %attr(755,root,root) %{_sbindir}/kadb_check
 %attr(755,root,root) %{_sbindir}/kdb
-#%%attr(755,root,root) %{_sbindir}/kdump
 %attr(755,root,root) %{_sbindir}/voldump
 %attr(755,root,root) %{_sbindir}/pt_util
 %attr(755,root,root) %{_sbindir}/read_tape
@@ -330,10 +338,11 @@ echo
 %attr(755,root,root) %{_sbindir}/ka-forwarder
 %attr(755,root,root) %{_sbindir}/fssync-debug
 %attr(755,root,root) %{_libdir}/libafsauthent.so.1.1
+%attr(755,root,root) %ghost %{_libdir}/libafsauthent.so.1
 %attr(755,root,root) %{_libdir}/libafsrpc.so.1.1
-#%%attr(755,root,root) %{_libdir}/libafssetpag.so.1.0
+%attr(755,root,root) %ghost %{_libdir}/libafsrpc.so.1
 %attr(755,root,root) %{_libdir}/libkopenafs.so.1.0
-%{_libdir}/libuafs.a
+%attr(755,root,root) %ghost %{_libdir}/libkopenafs.so.1
 %dir %{_libdir}/%{name}
 
 %files kerberos-client
@@ -399,12 +408,23 @@ echo
 %{_includedir}/ubik.h
 %{_includedir}/ubik_int.h
 %{_libdir}/afs
-%{_libdir}/libafsauthent.a
-%{_libdir}/libafsrpc.a
+%{_libdir}/libafsauthent.so
+%{_libdir}/libafsauthent_pic.a
+%{_libdir}/libafsrpc.so
+%{_libdir}/libafsrpc_pic.a
+%{_libdir}/libkopenafs.so
 %{_libdir}/libdes.a
+%{_libdir}/libkopenafs.a
 %{_libdir}/libjuafs.a
 %{_libdir}/liblwp.a
+%{_libdir}/libkopenafs.a
 %{_libdir}/librx.a
 %{_libdir}/librxkad.a
 %{_libdir}/librxstat.a
 %{_libdir}/libubik.a
+%{_libdir}/libuafs.a
+
+%files static
+%defattr(644,root,root,755)
+%{_libdir}/libafsauthent.a
+%{_libdir}/libafsrpc.a
