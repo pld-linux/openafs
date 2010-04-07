@@ -6,13 +6,13 @@
 Summary:	OpenAFS distributed filesystem
 Summary(pl.UTF-8):	Rozproszony system plików OpenAFS
 Name:		openafs
-Version:	1.5.72
+Version:	1.5.73
 Release:	0.1
 Epoch:		1
 License:	IBM Public License
 Group:		Networking/Daemons
 Source0:	http://www.openafs.org/dl/openafs/%{version}/%{name}-%{version}-src.tar.bz2
-# Source0-md5:	86bf56948b8e7b7b93a8a2add0728433
+# Source0-md5:	c5b9d1a0504a2810286a106bfc1b81a0
 Patch0:		%{name}-aclocal.patch
 URL:		http://www.openafs.org/
 BuildRequires:	autoconf
