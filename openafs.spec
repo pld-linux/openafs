@@ -6,7 +6,7 @@
 Summary:	OpenAFS distributed filesystem
 Summary(pl.UTF-8):	Rozproszony system plików OpenAFS
 Name:		openafs
-Version:	1.5.73
+Version:	1.5.74
 Release:	0.1
 Epoch:		1
 License:	IBM Public License
