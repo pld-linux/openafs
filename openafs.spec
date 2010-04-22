@@ -12,7 +12,7 @@ Epoch:		1
 License:	IBM Public License
 Group:		Networking/Daemons
 Source0:	http://www.openafs.org/dl/openafs/%{version}/%{name}-%{version}-src.tar.bz2
-# Source0-md5:	c5b9d1a0504a2810286a106bfc1b81a0
+# Source0-md5:	098af6d5846d5a51b93da564f50a145b
 Patch0:		%{name}-aclocal.patch
 URL:		http://www.openafs.org/
 BuildRequires:	autoconf
