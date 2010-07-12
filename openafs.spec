@@ -6,13 +6,13 @@
 Summary:	OpenAFS distributed filesystem
 Summary(pl.UTF-8):	Rozproszony system plików OpenAFS
 Name:		openafs
-Version:	1.5.74
+Version:	1.5.75
 Release:	0.1
 Epoch:		1
 License:	IBM Public License
 Group:		Networking/Daemons
 Source0:	http://www.openafs.org/dl/openafs/%{version}/%{name}-%{version}-src.tar.bz2
-# Source0-md5:	098af6d5846d5a51b93da564f50a145b
+# Source0-md5:	79e39e8db88fd368a69c829695f74310
 Patch0:		%{name}-aclocal.patch
 URL:		http://www.openafs.org/
 BuildRequires:	autoconf
@@ -339,9 +339,9 @@ echo
 %attr(755,root,root) %{_sbindir}/fssync-debug
 %attr(755,root,root) %{_libdir}/libafsauthent.so.1.1
 %attr(755,root,root) %ghost %{_libdir}/libafsauthent.so.1
-%attr(755,root,root) %{_libdir}/libafsrpc.so.1.1
+%attr(755,root,root) %{_libdir}/libafsrpc.so.1.2
 %attr(755,root,root) %ghost %{_libdir}/libafsrpc.so.1
-%attr(755,root,root) %{_libdir}/libkopenafs.so.1.0
+%attr(755,root,root) %{_libdir}/libkopenafs.so.1.1
 %attr(755,root,root) %ghost %{_libdir}/libkopenafs.so.1
 %dir %{_libdir}/%{name}
 
