@@ -1,0 +1,11 @@
+--- openafs-1.5.77/aclocal.m4~	2010-09-08 14:57:05.000000000 +0200
++++ openafs-1.5.77/aclocal.m4	2010-09-14 11:38:46.475385925 +0200
+@@ -11,7 +11,7 @@
+ # even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+ # PARTICULAR PURPOSE.
+ 
+-m4_if(m4_PACKAGE_VERSION, [2.61],,
++# m4_if(m4_PACKAGE_VERSION, [2.61],,
+ [m4_fatal([this file was generated for autoconf 2.61.
+ You have another version of autoconf.  If you want to use that,
+ you should regenerate the build system entirely.], [63])])
