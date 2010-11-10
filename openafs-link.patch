@@ -1,0 +1,14 @@
+--- openafs-1.5.78/src/pam/Makefile.in~	2010-11-04 15:44:09.000000000 +0100
++++ openafs-1.5.78/src/pam/Makefile.in	2010-11-10 09:54:33.010520325 +0100
+@@ -22,9 +22,9 @@
+ 
+ LDFLAGS = ${SHLIB_LDFLAGS}
+    LIBS = ${TOP_LIBDIR}/libafsauthent_pic.a ${TOP_LIBDIR}/libafsrpc_pic.a \
+-	  ${PAM_LIBS} @LIB_AFSDB@ ${MT_LIBS}
++	  ${PAM_LIBS} @LIB_AFSDB@ ${MT_LIBS} -lpam
+   KLIBS = ktc_krb.o ${TOP_LIBDIR}/libafsauthent_pic.a \
+-	  ${TOP_LIBDIR}/libafsrpc_pic.a ${PAM_LIBS} @LIB_AFSDB@ ${MT_LIBS}
++	  ${TOP_LIBDIR}/libafsrpc_pic.a ${PAM_LIBS} @LIB_AFSDB@ ${MT_LIBS} -lpam
+  SHOBJS = afs_account.o afs_session.o afs_password.o \
+ 	  afs_pam_msg.o afs_message.o AFS_component_version_number.o
+    OBJS = $(SHOBJS) test_pam.o
