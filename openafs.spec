@@ -7,14 +7,15 @@
 Summary:	OpenAFS distributed filesystem
 Summary(pl.UTF-8):	Rozproszony system plików OpenAFS
 Name:		openafs
-Version:	1.5.77
+Version:	1.5.78
 Release:	0.1
 Epoch:		1
 License:	IBM Public License
 Group:		Networking/Daemons
 Source0:	http://www.openafs.org/dl/openafs/%{version}/%{name}-%{version}-src.tar.bz2
-# Source0-md5:	d365caca068b6c2ee7768cc306d38f3f
+# Source0-md5:	d2ad44d1642f25fce6ac2d2944439559
 Patch0:		%{name}-autoconf.patch
+Patch1:		%{name}-link.patch
 URL:		http://www.openafs.org/
 BuildRequires:	autoconf
 BuildRequires:	bison
@@ -195,6 +196,7 @@ Statyczne biblioteki OpenAFS.
 %prep
 %setup -q
 %patch0 -p1
+%patch1 -p1
 
 %build
 %{__autoconf}
@@ -402,7 +404,6 @@ echo
 %{_includedir}/lock.h
 %{_includedir}/lwp.h
 %{_includedir}/mit-cpyright.h
-%{_includedir}/potpourri.h
 %{_includedir}/preempt.h
 %{_includedir}/rx
 %{_includedir}/timer.h
