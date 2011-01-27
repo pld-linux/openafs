@@ -23,6 +23,7 @@ BuildRequires:	flex
 BuildRequires:	heimdal-devel
 BuildRequires:	ncurses-devel
 BuildRequires:	pam-devel
+BuildRequires:	pkgconfig
 Requires(post):	/sbin/ldconfig
 Requires(post,preun):	/sbin/chkconfig
 Requires:	rc-scripts
